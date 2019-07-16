@@ -2,7 +2,7 @@ import TRReactComponent from "tm-react/src/artifacts/framework/tr-react-componen
 import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
 import {OnActionFunction} from "./tr-ui-data";
-import TRDialog, {DialogMaxWidth} from "./tr-dialog";
+import TRDialog from "./tr-dialog";
 import {Button, DialogContentText} from "./ui-component";
 
 

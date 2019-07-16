@@ -44,22 +44,15 @@ class TRDropdownDataHelper {
 // DROP DOWN DATA
 
 
-// {
-//     [...dateJobMap.keys()].map(jobsForDate =>
-//         jobsForDate.map(job => (
-//             <TruckJobComp job = { job } />
-// ))
-// )
-// }
 
 class TRConfirmAlertDialogProps {
     public cancelFunction?: OnActionFunction;
-    public cancelLabel?: string;
-    public message?: string;
+    public cancelLabel?: string = "Cancel";
+    public message: string = "Seems Something happening wrong!";
     public okayFunction?: OnActionFunction;
-    public okayLabel?: string;
+    public okayLabel?: string = "Confirm";
     public onCloseCallbackData?: any;
-    public title?: string;
+    public title?: string = "Confirm";
 
 }
 
@@ -79,8 +72,33 @@ class TRTableActionData {
         this.icon = icon;
     }
 
+    public setAction(action: OnActionFunction): TRTableActionData{
+        this.action = action;
+        return this;
+    }
+
+    public setCallbackData(actionCallbackData: any): TRTableActionData{
+        this.actionCallbackData = actionCallbackData;
+        return this;
+    }
+
     public addActionCallbackData(actionCallbackData: any): TRTableActionData {
         this.actionCallbackData = actionCallbackData;
+        return this;
+    }
+
+    public updateConfirmationAction(okayFunction?: OnActionFunction, cancelFunction?: OnActionFunction): TRTableActionData{
+        if (this.confirmation){
+            this.confirmation.okayFunction = okayFunction;
+            this.confirmation.cancelFunction = cancelFunction;
+        }
+        return this;
+    }
+
+    public updateConfirmationCancelAction(cancelFunction: OnActionFunction): TRTableActionData{
+        if (this.confirmation){
+            this.confirmation.cancelFunction = cancelFunction;
+        }
         return this;
     }
 
@@ -102,6 +120,15 @@ class TRTableActionData {
 class TRTableActionDataHelper {
 
     private actions: Map<string, TRTableActionData> = new Map<string, TRTableActionData>();
+
+    public getAction(name: string): any{
+        return this.actions.get(name);
+    }
+
+    public updateAction(name: string, data: TRTableActionData): TRTableActionDataHelper {
+        this.actions.set(name, data);
+        return this;
+    }
 
     public getMap(): Map<string, TRTableActionData> {
         return this.actions;
@@ -125,18 +152,75 @@ class TRTableActionDataHelper {
     }
 
 }
-
 // TABLE ACTION DATA
 
 
 // TABLE HEADER DATA
+export enum Align {
+    inherit = 'inherit',
+    left = 'left',
+    right = 'right',
+    center = 'center',
+    justify = 'justify',
+}
+
 class TRTableHeaderData {
-    public id?: any;
-    public numeric: boolean = false;
+    public align: Align = Align.center;
     public disablePadding: boolean = false;
     public enableSort: boolean = true;
     public label?: string;
-    public title?: string;
+    public tooltip?: string;
+    public fieldName?: string;
+
+
+
+    constructor(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string) {
+        this.fieldName = fieldName;
+        this.enableSort = enableSort;
+        this.label = label;
+        this.tooltip = tooltip;
+    }
+
+    public setAlign(align: Align): TRTableHeaderData{
+        this.align = align;
+        return this;
+    }
+
+    public setDisablePadding(disablePadding: boolean): TRTableHeaderData{
+        this.disablePadding = disablePadding;
+        return this;
+    }
+
+
+    public setEnableSort(enableSort: boolean): TRTableHeaderData{
+        this.enableSort = enableSort;
+        return this;
+    }
+
+    public setTooltip(tooltip: string): TRTableHeaderData{
+        this.tooltip = tooltip;
+        return this;
+    }
+
+}
+
+class TRTableHeaderDataHelper {
+    private headers: Array<TRTableHeaderData> = [];
+
+    public add(data: TRTableHeaderData): TRTableHeaderDataHelper {
+        this.headers.push(data);
+        return this;
+    }
+
+    public getHeaders(): Array<TRTableHeaderData> {
+        return this.headers;
+    }
+
+    public static init(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string):TRTableHeaderDataHelper {
+        let init: TRTableHeaderDataHelper = new TRTableHeaderDataHelper();
+        init.add(new TRTableHeaderData(label, fieldName, enableSort, tooltip));
+        return init;
+    }
 }
 
 // TABLE HEADER DATA
@@ -174,5 +258,7 @@ export {
     TRDropdownDataHelper,
     TRTableActionDataHelper,
     TRTableActionData,
-    TRConfirmAlertDialogProps
+    TRConfirmAlertDialogProps,
+    TRTableHeaderDataHelper,
+    TRTableHeaderData
 }

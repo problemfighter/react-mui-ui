@@ -42,6 +42,8 @@ export {
     Menu as Menu,
     Divider as Divider,
     ListItemIcon as ListItemIcon,
+    TableHead as TableHead, TableRow as TableRow, TableCell as TableCell, TableBody as TableBody, TableSortLabel as TableSortLabel,
+    Tooltip as Tooltip,
     Dialog as Dialog, DialogTitle as DialogTitle, DialogActions as DialogActions, DialogContent as DialogContent, DialogContentText as DialogContentText
 
 } from "@material-ui/core";

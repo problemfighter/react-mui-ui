@@ -50,7 +50,7 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
         const {sortDirection, orderBy, headers, enableActionColumn, actionColumnName} = this.props;
         let actionHeader: any = "";
         if (enableActionColumn) {
-            actionHeader = (<TableCell>{actionColumnName}</TableCell>);
+            actionHeader = (<TableCell><Tooltip title={actionColumnName}><span>{actionColumnName}</span></Tooltip></TableCell>);
         }
         return (<React.Fragment>
             <TableHead>

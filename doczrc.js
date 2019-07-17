@@ -1,3 +1,19 @@
+const merge = require('webpack-merge');
+const customCompile = {
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js', '.jsx']
+    },
+};
+
 export default {
     title: 'React MUI UI',
     description: 'This is React Material UI, UI Projects',
@@ -7,5 +23,8 @@ export default {
         },
     },
     files: './docz/*.{md,markdown,mdx}',
-    plugins: []
+    plugins: [],
+    modifyBundlerConfig: config => {
+        return merge(config, customCompile);
+    }
 }

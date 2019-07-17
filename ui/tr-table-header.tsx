@@ -52,7 +52,6 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
         if (enableActionColumn) {
             actionHeader = (<TableCell>{actionColumnName}</TableCell>);
         }
-
         return (<React.Fragment>
             <TableHead>
                 <TableRow>{headers.map((definition: TRTableHeaderData, key: any) => {

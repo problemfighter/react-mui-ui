@@ -207,8 +207,13 @@ class TRTableHeaderData {
 class TRTableHeaderDataHelper {
     private headers: Array<TRTableHeaderData> = [];
 
-    public add(data: TRTableHeaderData): TRTableHeaderDataHelper {
+    public addData(data: TRTableHeaderData): TRTableHeaderDataHelper {
         this.headers.push(data);
+        return this;
+    }
+
+    public add(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string): TRTableHeaderDataHelper {
+        this.headers.push(new TRTableHeaderData(label, fieldName, enableSort, tooltip));
         return this;
     }
 
@@ -218,7 +223,7 @@ class TRTableHeaderDataHelper {
 
     public static init(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string):TRTableHeaderDataHelper {
         let init: TRTableHeaderDataHelper = new TRTableHeaderDataHelper();
-        init.add(new TRTableHeaderData(label, fieldName, enableSort, tooltip));
+        init.addData(new TRTableHeaderData(label, fieldName, enableSort, tooltip));
         return init;
     }
 }

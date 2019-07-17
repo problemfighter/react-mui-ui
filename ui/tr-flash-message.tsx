@@ -97,13 +97,18 @@ interface TRFlashProps extends TRProps {
     message: string,
     onCloseFunction: any,
     isOpen: boolean,
+    terminateDuration: number,
 }
 
 interface TRFlashState extends TRState {}
-const SNACK_BAR_AUTO_HIDE_DURATION = 5000;
 export default class TRFlashMessage extends TRReactComponent<TRFlashProps, TRFlashState> {
+
+    static defaultProps = {
+        terminateDuration: 5000
+    };
+
     render() {
-        const {message, onCloseFunction, variant, isOpen } = this.props;
+        const {message, onCloseFunction, variant, isOpen, terminateDuration } = this.props;
         return (
             <React.Fragment>
                 <Snackbar
@@ -112,7 +117,7 @@ export default class TRFlashMessage extends TRReactComponent<TRFlashProps, TRFla
                         horizontal: 'center',
                     }}
                     open={isOpen}
-                    autoHideDuration={SNACK_BAR_AUTO_HIDE_DURATION}
+                    autoHideDuration={terminateDuration}
                     onClose={onCloseFunction}>
                     <ShowSnackBarContent
                         onCloseFunction={onCloseFunction}

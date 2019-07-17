@@ -123,7 +123,7 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
             });
 
 
-        let tableHeader = TRTableHeaderDataHelper.init("Name", "name", true, "Sort By Name");
+        let tableHeader = TRTableHeaderDataHelper.init("Name", "id", true, "Sort By Name");
 
 
         const component = this;

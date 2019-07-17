@@ -32,18 +32,15 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
         this.props.clickForSortFunction.click(event, definition);
     };
 
-    private enableSorting(sortDirection: SortDirection, orderBy:any, definition:TRTableHeaderData){
-        if (!definition.enableSort){
+    private enableSorting(sortDirection: SortDirection, orderBy: any, definition: TRTableHeaderData) {
+        if (!definition.enableSort) {
             let title = (definition.tooltip ? definition.tooltip : definition.label);
-            return (<Tooltip title={title}><span>{title}</span></Tooltip>);
+            return (<Tooltip title={title}><span>{definition.label}</span></Tooltip>);
         } else {
-            return (
-                <Tooltip
+            return (<Tooltip
                     title={definition.tooltip ? definition.tooltip : definition.label} enterDelay={300}>
-                    <TableSortLabel
-                        active={orderBy === definition.fieldName}
-                        direction={sortDirection}
-                        onClick={(event:any) =>{ this.sortableHandler(definition, event)}}>{definition.label}</TableSortLabel>
+                    <TableSortLabel active={orderBy === definition.fieldName} direction={sortDirection}
+                        onClick={(event: any) => {this.sortableHandler(definition, event)}}>{definition.label}</TableSortLabel>
                 </Tooltip>
             );
         }
@@ -58,19 +55,15 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
 
         return (<React.Fragment>
             <TableHead>
-                <TableRow>
-                    {headers.map((definition: TRTableHeaderData) => {
-                        return (
-                            <TableCell
+                <TableRow>{headers.map((definition: TRTableHeaderData, key: any) => {
+                        return (<TableCell
+                                variant="head"
+                                key={key}
                                 align={definition.align}
                                 padding={definition.disablePadding ? 'none' : 'default'}
-                                sortDirection={orderBy === definition.fieldName ? sortDirection : false}>
-                                {this.enableSorting(sortDirection, orderBy, definition)}
-                            </TableCell>
+                                sortDirection={false}>{this.enableSorting(sortDirection, orderBy, definition)}</TableCell>
                         );
-                    }, this)}
-                    {actionHeader}
-                </TableRow>
+                    })}{actionHeader}</TableRow>
             </TableHead>
         </React.Fragment>);
     }

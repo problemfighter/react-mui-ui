@@ -221,9 +221,9 @@ class TRTableHeaderDataHelper {
         return this.headers;
     }
 
-    public static init(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string):TRTableHeaderDataHelper {
+    public static init(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string, align: Align = Align.center):TRTableHeaderDataHelper {
         let init: TRTableHeaderDataHelper = new TRTableHeaderDataHelper();
-        init.addData(new TRTableHeaderData(label, fieldName, enableSort, tooltip));
+        init.addData(new TRTableHeaderData(label, fieldName, enableSort, tooltip).setAlign(align));
         return init;
     }
 }

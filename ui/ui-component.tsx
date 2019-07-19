@@ -12,6 +12,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 export type WithStyles = WithStyles;
 export type Theme = Theme;
@@ -48,7 +49,7 @@ export {
     FormControlLabel as FormControlLabel,
     TableHead as TableHead, TableRow as TableRow, TableCell as TableCell, TableBody as TableBody, TableSortLabel as TableSortLabel,
     Tooltip as Tooltip, FormHelperText as FormHelperText,
-    AppBar as AppBar, Toolbar as Toolbar,
+    AppBar as AppBar, Toolbar as Toolbar, Drawer as Drawer,  ListItemText as ListItemText,
     Dialog as Dialog, DialogTitle as DialogTitle, DialogActions as DialogActions, DialogContent as DialogContent, DialogContentText as DialogContentText
 
 } from "@material-ui/core";
@@ -68,6 +69,7 @@ export {
     DeleteIcon,
     VisibilityIcon,
     LockOutlinedIcon,
+    ChevronLeftIcon,
     MenuIcon,
     ListIcon
 };

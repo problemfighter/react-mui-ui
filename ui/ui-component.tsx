@@ -13,9 +13,20 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+
+
+
+
 export type WithStyles = WithStyles;
 export type Theme = Theme;
+
+export {
+    useTheme as useTheme
+} from '@material-ui/core/styles';
 
 export {
     Button as Button,
@@ -45,8 +56,10 @@ export {
     Menu as Menu,
     Divider as Divider,
     Checkbox as Checkbox,
-    ListItemIcon as ListItemIcon,
     FormControlLabel as FormControlLabel,
+    ListItemIcon as ListItemIcon,
+    List as List,
+    ListItem as ListItem,
     TableHead as TableHead, TableRow as TableRow, TableCell as TableCell, TableBody as TableBody, TableSortLabel as TableSortLabel,
     Tooltip as Tooltip, FormHelperText as FormHelperText,
     AppBar as AppBar, Toolbar as Toolbar, Drawer as Drawer,  ListItemText as ListItemText,
@@ -57,6 +70,9 @@ export {
 
 
 export {
+    ChevronRightIcon,
+    InboxIcon,
+    MailIcon,
     CheckCircleIcon,
     ErrorIcon,
     WarningIcon,
@@ -79,6 +95,11 @@ export {
     green as green,
     amber as amber,
 } from "@material-ui/core/colors";
+
+import clsx from 'clsx';
+export {
+    clsx
+};
 
 
 

@@ -19,6 +19,6 @@
     "jsx": "react"
   },
   "include": [
-    "ui", "src"
+    "ui", "src", "snippet"
   ]
 }

@@ -35,8 +35,6 @@ class TRVerticalNestedList extends TRReactComponent<TRVerticalNestedProps, TRVer
         super(props);
     }
 
-    componentDidUpdate(prevProps: TRVerticalNestedProps) {}
-
     private getIcon(icon: any): any {
         if (!icon) {
             return ""
@@ -120,7 +118,6 @@ class TRVerticalNestedList extends TRReactComponent<TRVerticalNestedProps, TRVer
 
     render(){
         const {classes, itemList} = this.props;
-        console.log(this.getListItem(itemList, classes));
         return (
             <React.Fragment>
                 <List>

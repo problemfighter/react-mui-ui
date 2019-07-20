@@ -11,15 +11,18 @@ import {
     Toolbar,
     Typography,
     ListItem,
-    withStyles, useTheme
+    withStyles, useTheme, Collapse, StarBorderIcon, ExpandLessIcon, ExpandMoreIcon
 } from "../ui/ui-component";
 import {TRProps} from "tm-react/src/artifacts/model/tr-model";
+import {TRListData} from "../ui/tr-ui-data";
+import TRVerticalNestedList from '../ui/tr-vertical-nested-list';
 
 export interface Props extends TRProps {
     classes: any
     appTitle?:string
     navTitle?:string
     bodyContent:any
+    itemList: Array<TRListData>;
 }
 
 
@@ -27,7 +30,8 @@ class NavAppBar extends TRReactComponent<Props, any> {
 
     static defaultProps = {
         appTitle: "Application Title",
-        navTitle: "Navigation"
+        navTitle: "Navigation",
+        itemList: [],
     };
 
     constructor(props: Props){
@@ -93,23 +97,7 @@ class NavAppBar extends TRReactComponent<Props, any> {
                         </IconButton>
                     </div>
                     <Divider />
-                    <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
-                    <Divider />
-                    <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
+                   <TRVerticalNestedList itemList={this.props.itemList}/>
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />

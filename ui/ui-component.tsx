@@ -17,6 +17,20 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import RowingIcon from '@material-ui/icons/Rowing';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import ReportIcon from '@material-ui/icons/Report';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ContactsIcon from '@material-ui/icons/Contacts';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import PeopleIcon from '@material-ui/icons/People';
 
 
 
@@ -57,9 +71,9 @@ export {
     Divider as Divider,
     Checkbox as Checkbox,
     FormControlLabel as FormControlLabel,
-    ListItemIcon as ListItemIcon,
-    List as List,
-    ListItem as ListItem,
+    ListItemIcon as ListItemIcon, Icon as Icon,
+    List as List, Collapse as Collapse,
+    ListItem as ListItem, ListSubheader as ListSubheader,
     TableHead as TableHead, TableRow as TableRow, TableCell as TableCell, TableBody as TableBody, TableSortLabel as TableSortLabel,
     Tooltip as Tooltip, FormHelperText as FormHelperText,
     AppBar as AppBar, Toolbar as Toolbar, Drawer as Drawer,  ListItemText as ListItemText,
@@ -86,8 +100,22 @@ export {
     VisibilityIcon,
     LockOutlinedIcon,
     ChevronLeftIcon,
+    SendIcon,
+    ExpandLessIcon,
+    ExpandMoreIcon,
+    StarBorderIcon,
+    DraftsIcon,
+    AddShoppingCartIcon,
     MenuIcon,
-    ListIcon
+    ListIcon,
+    RowingIcon,
+    ReportIcon,
+    AccountBoxIcon,
+    ContactsIcon,
+    AssignmentIcon,
+    BarChartIcon,
+    PeopleIcon,
+    DashboardIcon
 };
 
 

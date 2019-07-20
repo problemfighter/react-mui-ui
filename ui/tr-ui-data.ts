@@ -1,4 +1,5 @@
-import {DeleteIcon, EditIcon, StopIcon, VisibilityIcon} from "./ui-component";
+import {DeleteIcon, EditIcon, ExpandLessIcon, ExpandMoreIcon, StopIcon, VisibilityIcon} from "./ui-component";
+
 
 export interface OnActionFunction {
     click(event: any, onClickData: any): void;
@@ -257,6 +258,112 @@ class TRSelectData {
 
 // SELECT DATA
 
+// LIST DATA
+class TRListData {
+    public icon: any;
+    public label?: string;
+    public name?: string;
+    public action?: OnActionFunction;
+    public actionCallbackData?: any;
+    public expandLessIcon: any = ExpandLessIcon;
+    public expandMoreIcon: any = ExpandMoreIcon;
+    public nested: Array<TRListData> = [];
+
+
+    constructor(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any, nested: Array<TRListData> = [], expandLessIcon: any = ExpandLessIcon, expandMoreIcon: any = ExpandMoreIcon) {
+        this.icon = icon;
+        this.label = label;
+        this.name = name;
+        this.action = action;
+        this.expandLessIcon = expandLessIcon;
+        this.expandMoreIcon = expandMoreIcon;
+        this.actionCallbackData = actionCallbackData;
+        this.nested = nested;
+    }
+
+    public setIcon(icon: any): TRListData {
+        this.icon = icon;
+        return this;
+    }
+
+    public setAction(action: any): TRListData {
+        this.action = action;
+        return this;
+    }
+
+    public setActionCallbackData(actionCallbackData: any): TRListData {
+        this.actionCallbackData = actionCallbackData;
+        return this;
+    }
+
+    public setExpandLessIcon(expandLessIcon: any): TRListData {
+        this.expandLessIcon = expandLessIcon;
+        return this;
+    }
+
+    public setNested(nested:  Array<TRListData>): TRListData {
+        this.nested = nested;
+        return this;
+    }
+
+    public addNestedItem(nested:  TRListData): TRListData {
+        this.nested.push(nested);
+        return this;
+    }
+}
+
+class TRListDataHelper {
+    private mainListMap: Map<string, TRListData> = new Map<string, TRListData>();
+    private key: string;
+    private child?: TRListDataHelper;
+
+    constructor(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any) {
+        this.key = name;
+        this.mainListMap.set(name, new TRListData(name, label, icon, action, actionCallbackData))
+    }
+
+    add(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any):TRListDataHelper {
+        this.key = name;
+        this.mainListMap.set(name, new TRListData(name, label, icon, action, actionCallbackData))
+        return this;
+    }
+
+    public more(): any {
+        return this.mainListMap.get(this.key)
+    }
+
+    public getMap(): Map<string, TRListData> {
+        return this.mainListMap;
+    }
+
+    public getList(): Array<TRListData> {
+        let list: Array<TRListData> = [];
+        this.mainListMap.forEach((data: TRListData, name: string) => {
+            list.push(data);
+        });
+
+        return list;
+    }
+
+    public static start(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any): TRListDataHelper {
+        return new TRListDataHelper(name, label, icon, action, actionCallbackData)
+    }
+
+    public addChild(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any): TRListDataHelper {
+        this.child = new TRListDataHelper(name, label, icon, action, actionCallbackData)
+        return this.child;
+    }
+
+    public addToParent(): TRListDataHelper{
+        if (this.child){
+            this.mainListMap!.get(this.key)!.setNested(this.child.getList())
+        }
+        this.child = undefined;
+        return this;
+    }
+}
+
+// LIST DATA
 
 export {
     TRDropdownData,
@@ -265,5 +372,7 @@ export {
     TRTableActionData,
     TRConfirmAlertDialogProps,
     TRTableHeaderDataHelper,
-    TRTableHeaderData
+    TRTableHeaderData,
+    TRListData,
+    TRListDataHelper
 }

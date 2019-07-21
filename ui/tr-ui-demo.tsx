@@ -94,6 +94,16 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
         </React.Fragment>);
     }
 
+    private drawerContent() {
+        return (<React.Fragment>
+            <br/><br/>
+            This is Drawer Content This is Drawer Content This is Drawer Content This is Drawer Content
+            <Button
+                variant="contained"
+                color="primary" onClick = {(event:any) => {this.showDrawerBoxCancel(event)}}> Close it</Button>
+        </React.Fragment>);
+    }
+
     render(){
 
         // Dropdown
@@ -237,13 +247,13 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
                 onCloseFunction={
                     {
                         click(event: any, onClickData: any): void {
-                            component.showDrawerBoxCancel(event)
+                            // component.showDrawerBoxCancel(event)
                         }
                     }}
                 isOpen={this.state.showDrawer}
-                bodyContent="This is the Body Content"
-                slideSide={SlideSide.RIGHT}
-                autoClose={true}/>
+                bodyContent={this.drawerContent()}
+                slideSide={SlideSide.LEFT}
+                autoClose={false}/>
 
             {this.title("Table")}
             {this.title("Pagination")}

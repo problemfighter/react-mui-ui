@@ -46,11 +46,10 @@ export default class TRDrawer extends TRReactComponent<TRDrawerProps, TRDrawerSt
         }
     }
 
-    private onClose(event:any){
-        if (this.props.onCloseFunction && this.props.onCloseFunction.click){
+    private onClose(event: any) {
+        if (this.props.onCloseFunction && this.props.onCloseFunction.click) {
             this.props.onCloseFunction.click(event, this.props.onCloseCallbackData)
-            this.setState({isOpen: false})
-        } else if (this.props.autoClose){
+        } else if (this.props.autoClose) {
             this.setState({isOpen: false})
         }
     }

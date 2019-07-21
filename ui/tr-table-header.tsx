@@ -1,7 +1,7 @@
 import TRReactComponent from "tm-react/src/artifacts/framework/tr-react-component";
 import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
-import {OnActionFunction, TRTableHeaderData} from "./tr-ui-data";
+import {Align, OnActionFunction, TRTableHeaderData} from "./tr-ui-data";
 import {TableCell, TableHead, TableRow, TableSortLabel, Tooltip} from "./ui-component";
 
 interface TRTableHeaderProps extends TRProps {
@@ -11,6 +11,7 @@ interface TRTableHeaderProps extends TRProps {
     clickForSortFunction: OnActionFunction;
     enableActionColumn?: boolean;
     actionColumnName?: string;
+    actionColumnAlign?: Align;
 }
 
 interface TRTableHeaderState extends TRState {}
@@ -26,6 +27,7 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
         enableActionColumn: true,
         actionColumnName: "Actions",
         sortDirection: SortDirection.ascending,
+        actionColumnAlign: Align.center,
     };
 
     private sortableHandler(definition: TRTableHeaderData, event: any){
@@ -47,10 +49,10 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
     }
 
     render() {
-        const {sortDirection, orderBy, headers, enableActionColumn, actionColumnName} = this.props;
+        const {sortDirection, orderBy, headers, enableActionColumn, actionColumnName, actionColumnAlign} = this.props;
         let actionHeader: any = "";
         if (enableActionColumn) {
-            actionHeader = (<TableCell><Tooltip title={actionColumnName}><span>{actionColumnName}</span></Tooltip></TableCell>);
+            actionHeader = (<TableCell align={actionColumnAlign}><Tooltip title={actionColumnName}><span>{actionColumnName}</span></Tooltip></TableCell>);
         }
         return (<React.Fragment>
             <TableHead>

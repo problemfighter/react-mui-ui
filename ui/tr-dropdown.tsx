@@ -14,7 +14,7 @@ import {
     Popper
 } from "./ui-component";
 import {DesignProps, TRDropdownData} from "./tr-ui-data";
-import {Interface} from "readline";
+
 
 class TRTableActionState implements TRState {
     public anchorRef: any = React.createRef();

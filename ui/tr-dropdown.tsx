@@ -54,6 +54,7 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
 
     render() {
         const {dropdownStyle} = this.props;
+
         return (<React.Fragment>
             <Button
                 classes={dropdownStyle ? dropdownStyle!.actionButton!.classes : undefined}

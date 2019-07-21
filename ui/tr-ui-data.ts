@@ -183,11 +183,12 @@ class TRTableHeaderData {
 
 
 
-    constructor(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string) {
+    constructor(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string, align: Align = Align.center) {
         this.fieldName = fieldName;
         this.enableSort = enableSort;
         this.label = label;
         this.tooltip = tooltip;
+        this.align = align;
     }
 
     public setAlign(align: Align): TRTableHeaderData{
@@ -221,8 +222,8 @@ class TRTableHeaderDataHelper {
         return this;
     }
 
-    public add(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string): TRTableHeaderDataHelper {
-        this.headers.push(new TRTableHeaderData(label, fieldName, enableSort, tooltip));
+    public add(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string, align: Align = Align.center): TRTableHeaderDataHelper {
+        this.headers.push(new TRTableHeaderData(label, fieldName, enableSort, tooltip, align));
         return this;
     }
 

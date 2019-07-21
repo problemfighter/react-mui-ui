@@ -11,6 +11,7 @@ import TRAlertDialog from "./tr-alert-dialog";
 import TRTableAction from "./tr-table-action";
 import TRTableHeader, {SortDirection} from "./tr-table-header";
 import TRDrawer, {SlideSide} from "./tr-drawer";
+import {TrUtil} from "tm-react/src/artifacts/util/tr-util";
 
 class DemoState implements TRState{
     public showFlashMessage: boolean = false;
@@ -152,6 +153,17 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
 
 
         const component = this;
+
+        let touhid = {
+            xy: {
+                mia: "vai"
+            },
+            y: "y"
+        };
+        console.log(TrUtil.objectValue(touhid, undefined, "xy", "mia"));
+        console.log(TrUtil.objectValue(touhid, undefined, "xy", "Y"));
+        console.log(TrUtil.objectValue(touhid, undefined, "y"));
+
         return (<React.Fragment>
 
             {this.title("Dropdown")}

@@ -12,6 +12,8 @@ import {
     Popper
 } from "./ui-component";
 import {DesignProps, TRDropdownData} from "./tr-ui-data";
+import {TrUtil} from "tm-react/src/artifacts/util/tr-util";
+import TRStyleHelper from "../src/tr-style-helper";
 
 
 class TRTableActionState implements TRState {
@@ -50,14 +52,16 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
         this.setState({open: false});
     };
 
+
+
     render() {
-        const {dropdownStyle} = this.props;
+        const defStyle: TRStyleHelper = new TRStyleHelper(this.props);
 
         return (<React.Fragment>
             <Button
-                classes={dropdownStyle ? dropdownStyle!.actionButton!.classes : undefined}
-                className={dropdownStyle ? dropdownStyle!.actionButton!.className : undefined}
-                style={dropdownStyle ? dropdownStyle!.actionButton!.style : undefined}
+                classes={ defStyle.classes("actionButton")}
+                className={defStyle.className("actionButton")}
+                style={defStyle.style("actionButton")}
                 ref={this.state.anchorRef}
                 aria-label="More"
                 aria-owns={this.state.open ? 'long-menu' : undefined}
@@ -73,24 +77,24 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
                         {...TransitionProps}
                         style={{transformOrigin: placement === "bottom" ? "center top" : "center bottom"}}>
                         <Paper
-                            classes={dropdownStyle ? dropdownStyle!.paper!.classes : undefined}
-                            className={dropdownStyle ? dropdownStyle!.paper!.className : undefined}
-                            style={dropdownStyle ? dropdownStyle!.paper!.style : undefined}
+                            classes={ defStyle.classes("paper")}
+                            className={defStyle.className("paper")}
+                            style={defStyle.style("paper")}
                             id="menu-list-grow">
                             <ClickAwayListener onClickAway={(event: any) => {
                                 this.handleClose(event)
                             }}>
                                 <MenuList
-                                    classes={dropdownStyle ? dropdownStyle!.menuList!.classes : undefined}
-                                    className={dropdownStyle ? dropdownStyle!.menuList!.className : undefined}
-                                    style={dropdownStyle ? dropdownStyle!.menuList!.style : undefined}>
+                                    classes={ defStyle.classes("menuList")}
+                                    className={defStyle.className("menuList")}
+                                    style={defStyle.style("menuList")}>
                                     {
                                         this.props.actions.map((definition: TRDropdownData, key: any) => {
                                             return (
                                                 <MenuItem
-                                                    classes={dropdownStyle ? dropdownStyle!.menuItem!.classes : undefined}
-                                                    className={dropdownStyle ? dropdownStyle!.menuItem!.className : undefined}
-                                                    style={dropdownStyle ? dropdownStyle!.menuItem!.style : undefined}
+                                                    classes={ defStyle.classes("menuItem")}
+                                                    className={defStyle.className("menuItem")}
+                                                    style={defStyle.style("menuItem")}
                                                     key={key} onClick={event => {
                                                     if (definition.onClickFunction && definition.onClickFunction.click) {
                                                         definition.onClickFunction.click(event, definition.onClickCallbackData);

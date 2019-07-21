@@ -1,8 +1,16 @@
 import {DeleteIcon, EditIcon, ExpandLessIcon, ExpandMoreIcon, StopIcon, VisibilityIcon} from "./ui-component";
+import {Classes} from "jss";
+import * as React from "react";
 
 
 export interface OnActionFunction {
     click(event: any, onClickData: any): void;
+}
+
+export interface DesignProps {
+    classes?: Classes;
+    style?: React.CSSProperties;
+    className?: string;
 }
 
 

@@ -8,7 +8,7 @@ import {
     TRDropdownDataHelper,
     TRTableActionData
 } from "./tr-ui-data";
-import TRDropdown from "./tr-dropdown";
+import TRDropdown, {DropdownStyle} from "./tr-dropdown";
 import TRAlertDialog from "./tr-alert-dialog";
 
 class TRTableActionState implements TRState {
@@ -17,6 +17,7 @@ class TRTableActionState implements TRState {
 
 interface TRTableActionProps extends TRProps {
     actions: Map<string, TRTableActionData>;
+    dropdownStyle?: DropdownStyle
 }
 
 export default class TRTableAction extends TRReactComponent<TRTableActionProps, TRTableActionState> {
@@ -104,7 +105,7 @@ export default class TRTableAction extends TRReactComponent<TRTableActionProps, 
     render() {
         return (<React.Fragment>
             {this.state.showConfirmation ? (this.getConfirmDialog(this.state.showConfirmation, this.confirmProps)) : ""}
-            <TRDropdown actions={this.processData()}/>
+            <TRDropdown actions={this.processData()} dropdownStyle={this.props.dropdownStyle}/>
         </React.Fragment>);
     }
 

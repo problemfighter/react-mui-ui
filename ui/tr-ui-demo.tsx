@@ -200,6 +200,9 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
                                }
                            }/>
 
+            {this.title("Vertical Nested List")}
+
+
             {this.title("Table")}
             {this.title("Pagination")}
             {this.title("Navigation")}

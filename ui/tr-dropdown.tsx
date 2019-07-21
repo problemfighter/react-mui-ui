@@ -3,7 +3,7 @@ import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
 import {
     Button,
-    ClickAwayListener,
+    ClickAwayListener, Fade,
     Grow,
     MenuItem,
     MenuList,
@@ -21,6 +21,22 @@ class TRTableActionState implements TRState {
     public open: boolean = false;
 }
 
+export enum PopperPlacementType {
+    BOTTOM_END = 'bottom-end',
+    BOTTOM_START = 'bottom-start',
+    BOTTOM = 'bottom',
+    LEFT_END = 'left-end',
+    LEFT_START = 'left-start',
+    LEFT = 'left',
+    RIGHT_END = 'right-end',
+    RIGHT_START = 'right-start',
+    RIGHT = 'right',
+    TOP_END = 'top-end',
+    TOP_START = 'top-start',
+    TOP = 'top'
+}
+
+
 export interface DropdownStyle {
     actionButton?: DesignProps;
     paper?: DesignProps;
@@ -31,10 +47,16 @@ export interface DropdownStyle {
 class TRTableActionProps implements TRProps {
     public actions: Array<TRDropdownData> = [];
     public dropdownStyle?: DropdownStyle;
+    public popperPlacementType?: PopperPlacementType = PopperPlacementType.BOTTOM_END;
+    public fadeTimeout?: number = 350;
 }
 
 export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRTableActionState> {
 
+    static defaultProps = {
+        popperPlacementType: PopperPlacementType.BOTTOM_END,
+        fadeTimeout: 350
+    };
 
     state: TRTableActionState = new TRTableActionState();
 
@@ -56,6 +78,7 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
 
     render() {
         const defStyle: TRStyleHelper = new TRStyleHelper(this.props);
+        const {popperPlacementType, fadeTimeout} = this.props;
 
         return (<React.Fragment>
             <Button
@@ -69,21 +92,16 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
                 onClick={(event: any) => {this.handleClick(event)}}>
                 <MoreVertIcon/>
             </Button>
-            <Popper open={this.state.open}
-                    anchorEl={this.state.anchorRef}
-                    transition>
-                {({TransitionProps, placement}) => (
-                    <Grow
-                        {...TransitionProps}
-                        style={{transformOrigin: placement === "bottom" ? "center top" : "center bottom"}}>
+
+            <Popper open={this.state.open} anchorEl={this.state.anchorRef} placement={popperPlacementType} transition >
+                {({ TransitionProps }) => (
+                    <Fade {...TransitionProps} timeout={fadeTimeout}>
                         <Paper
                             classes={ defStyle.classes("paper")}
                             className={defStyle.className("paper")}
                             style={defStyle.style("paper")}
                             id="menu-list-grow">
-                            <ClickAwayListener onClickAway={(event: any) => {
-                                this.handleClose(event)
-                            }}>
+                            <ClickAwayListener onClickAway={(event: any) => { this.handleClose(event)}}>
                                 <MenuList
                                     classes={ defStyle.classes("menuList")}
                                     className={defStyle.className("menuList")}
@@ -109,7 +127,7 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>
-                    </Grow>
+                    </Fade>
                 )}
             </Popper>
         </React.Fragment>);

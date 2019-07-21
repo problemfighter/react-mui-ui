@@ -56,9 +56,9 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
         const {dropdownStyle} = this.props;
         return (<React.Fragment>
             <Button
-                classes={dropdownStyle!.actionButton!.classes}
-                className={dropdownStyle!.actionButton!.className}
-                style={dropdownStyle!.actionButton!.style}
+                classes={dropdownStyle ? dropdownStyle!.actionButton!.classes : undefined}
+                className={dropdownStyle ? dropdownStyle!.actionButton!.className : undefined}
+                style={dropdownStyle ? dropdownStyle!.actionButton!.style : undefined}
                 ref={this.state.anchorRef}
                 aria-label="More"
                 aria-owns={this.state.open ? 'long-menu' : undefined}
@@ -74,25 +74,25 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
                         {...TransitionProps}
                         style={{transformOrigin: placement === "bottom" ? "center top" : "center bottom"}}>
                         <Paper
-                            classes={dropdownStyle!.paper!.classes}
-                            className={dropdownStyle!.paper!.className}
-                            style={dropdownStyle!.paper!.style}
+                            classes={dropdownStyle ? dropdownStyle!.paper!.classes : undefined}
+                            className={dropdownStyle ? dropdownStyle!.paper!.className : undefined}
+                            style={dropdownStyle ? dropdownStyle!.paper!.style : undefined}
                             id="menu-list-grow">
                             <ClickAwayListener onClickAway={(event: any) => {
                                 this.handleClose(event)
                             }}>
                                 <MenuList
-                                    classes={dropdownStyle!.menuList!.classes}
-                                    className={dropdownStyle!.menuList!.className}
-                                    style={dropdownStyle!.menuList!.style}
+                                    classes={dropdownStyle ? dropdownStyle!.menuList!.classes : undefined}
+                                    className={dropdownStyle ? dropdownStyle!.menuList!.className : undefined}
+                                    style={dropdownStyle ? dropdownStyle!.menuList!.style : undefined}
                                 >
                                     {
                                         this.props.actions.map((definition: TRDropdownData, key: any) => {
                                             return (
                                                 <MenuItem
-                                                    classes={dropdownStyle!.menuItem!.classes}
-                                                    className={dropdownStyle!.menuItem!.className}
-                                                    style={dropdownStyle!.menuItem!.style}
+                                                    classes={dropdownStyle ? dropdownStyle!.menuItem!.classes : undefined}
+                                                    className={dropdownStyle ? dropdownStyle!.menuItem!.className : undefined}
+                                                    style={dropdownStyle ? dropdownStyle!.menuItem!.style : undefined}
                                                     key={key} onClick={event => {
                                                     if (definition.onClickFunction && definition.onClickFunction.click) {
                                                         definition.onClickFunction.click(event, definition.onClickCallbackData);

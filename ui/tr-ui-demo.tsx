@@ -10,9 +10,11 @@ import {TRProgress} from "./tr-progress";
 import TRAlertDialog from "./tr-alert-dialog";
 import TRTableAction from "./tr-table-action";
 import TRTableHeader, {SortDirection} from "./tr-table-header";
+import TRDrawer, {SlideSide} from "./tr-drawer";
 
 class DemoState implements TRState{
     public showFlashMessage: boolean = false;
+    public showDrawer: boolean = false;
     public showDialog: boolean = false;
     public showAlertDialog: boolean = false;
     public flashMessage: string = "This is Flash Message";
@@ -55,6 +57,19 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
         this.setState((state: any) =>{
             return {showAlertDialog: !state.showAlertDialog};
         })
+    }
+
+    showDrawer(event: any) {
+        this.setState((state: any) =>{
+            return {showDrawer: !state.showDrawer};
+        })
+    }
+
+    showDrawerBoxCancel(event: any) {
+        this.setState((state: any) =>{
+            return {showDrawer: !state.showDrawer};
+        })
+        console.log("Cancel")
     }
 
     dialogAlertBoxCancel(event: any) {
@@ -151,10 +166,16 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
                 color="primary">
                 <Button onClick={(event:any) =>{this.showHideDialogBox(event)}}>Show Dialog Box</Button>
             </ButtonGroup>
-            <TRDialog isOpen={this.state.showDialog} children={<h1>This is Body Content of the Dialog Box</h1>}  title="Hmm Title" autoClose={true}
-                      onCloseFunction={{click(event: any, onClickData: any): void {
-                              component.showHideDialogBox(event)
-                }}}/>
+            <TRDialog isOpen={this.state.showDialog} children={<h1>This is Body Content of the Dialog Box</h1>}
+                      title="Hmm Title"
+                      autoClose={true}
+                      onCloseFunction={
+                          {
+                              click(event: any, onClickData: any): void {
+                                  component.showHideDialogBox(event)
+                              }
+                          }}
+            />
 
             {this.title("Alert Dialog")}
             <ButtonGroup
@@ -162,10 +183,13 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
                 color="primary">
                 <Button onClick={(event:any) =>{this.showHideDialogAlertBox(event)}}>Show Alert Dialog</Button>
             </ButtonGroup>
-            <TRAlertDialog isOpen={this.state.showAlertDialog} message="Are you sure want to delete?"
+            <TRAlertDialog
+                isOpen={this.state.showAlertDialog}
+                message="Are you sure want to delete?"
                            cancelFunction={{click(event: any, onClickData: any): void {
                                component.dialogAlertBoxCancel(event);
-                }}} okayFunction={{click(event: any, onClickData: any): void {
+                }}}
+                okayFunction={{click(event: any, onClickData: any): void {
                     component.dialogAlertBoxOkay(event);
                 }}}/>
 
@@ -202,6 +226,24 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
 
             {this.title("Vertical Nested List")}
 
+
+            {this.title("Drawer")}
+            <ButtonGroup
+                variant="contained"
+                color="primary">
+                <Button onClick={(event:any) =>{this.showDrawer(event)}}>Show Drawer Dialog</Button>
+            </ButtonGroup>
+            <TRDrawer
+                onCloseFunction={
+                    {
+                        click(event: any, onClickData: any): void {
+                            component.showDrawerBoxCancel(event)
+                        }
+                    }}
+                isOpen={this.state.showDrawer}
+                bodyContent="This is the Body Content"
+                slideSide={SlideSide.RIGHT}
+                autoClose={true}/>
 
             {this.title("Table")}
             {this.title("Pagination")}

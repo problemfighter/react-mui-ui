@@ -3,9 +3,14 @@ import React from "react";
 
 
 export const TRProgress = {
-    linear: (state: boolean) => {
+    linear: (state: boolean, color: any = "primary", zIndex: any = 9999) => {
         return (
-            state ? (<React.Fragment><Fade in={state}><LinearProgress color="primary"/></Fade></React.Fragment>) : ""
+            state ? (
+                <React.Fragment>
+                    <Fade in={state}>
+                        <LinearProgress color={color} style={{ position: 'absolute', top: 64, zIndex: zIndex, left: 0, right: 0 }}/>
+                    </Fade>
+                </React.Fragment>) : ""
         );
     }
 };

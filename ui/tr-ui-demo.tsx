@@ -2,17 +2,27 @@ import TRReactComponent from "tm-react/src/artifacts/framework/tr-react-componen
 import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
 import TRFlashMessage, {Variant} from "./tr-flash-message";
-import {Button, ButtonGroup, TableBody, TableCell, TableRow} from "./ui-component";
-import {TRDropdownDataHelper, TRTableActionDataHelper, TRTableHeaderDataHelper} from "./tr-ui-data";
+import {
+    AccountBoxIcon,
+    AddShoppingCartIcon,
+    Button,
+    ButtonGroup, ContactsIcon,
+    DashboardIcon, ListIcon, PeopleIcon, ReportIcon, RowingIcon,
+    Table,
+    TableBody,
+    TableCell,
+    TableRow
+} from "./ui-component";
+import {TRDropdownDataHelper, TRListDataHelper, TRTableActionDataHelper, TRTableHeaderDataHelper} from "./tr-ui-data";
 import TRDropdown from "./tr-dropdown";
 import TRDialog from "./tr-dialog";
+import TRVerticalNestedList from "./tr-vertical-nested-list";
 import {TRProgress} from "./tr-progress";
 import TRAlertDialog from "./tr-alert-dialog";
 import TRTableAction from "./tr-table-action";
 import TRTableHeader, {SortDirection} from "./tr-table-header";
 import TRDrawer, {SlideSide} from "./tr-drawer";
 import {TrUtil} from "tm-react/src/artifacts/util/tr-util";
-import {Table} from "@material-ui/core";
 
 class DemoState implements TRState{
     public showFlashMessage: boolean = false;
@@ -138,6 +148,18 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
     }
 
     render(){
+
+        let listData: TRListDataHelper = TRListDataHelper.start("dashboard", "Dashboard", DashboardIcon);
+        listData.add("product", "Products", AddShoppingCartIcon);
+        listData.add("user", "Users", PeopleIcon);
+        listData.addChild("acl", "ACL", ListIcon)
+            .add("role", "Role", RowingIcon);
+        listData.addToParent();
+
+        listData.add("order", "Order", ReportIcon);
+        listData.addChild("shipping", "Shipping", AccountBoxIcon)
+            .add("payment", "Payment", ContactsIcon);
+        listData.addToParent();
 
         // Dropdown
         let dropdownList = new TRDropdownDataHelper();
@@ -279,6 +301,8 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
                            }/>
 
             {this.title("Vertical Nested List")}
+            <TRVerticalNestedList itemList={listData.getList()}/>
+
 
 
             {this.title("Drawer")}

@@ -72,7 +72,7 @@ export {
     Checkbox as Checkbox,
     FormControlLabel as FormControlLabel,
     ListItemIcon as ListItemIcon, Icon as Icon,
-    List as List, Collapse as Collapse,
+    List as List, Collapse as Collapse,Table as Table,
     ListItem as ListItem, ListSubheader as ListSubheader,
     TableHead as TableHead, TableRow as TableRow, TableCell as TableCell, TableBody as TableBody, TableSortLabel as TableSortLabel,
     Tooltip as Tooltip, FormHelperText as FormHelperText,

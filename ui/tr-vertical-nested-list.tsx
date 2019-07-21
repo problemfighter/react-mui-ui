@@ -19,7 +19,7 @@ const style = (theme: Theme) => createStyles({
 });
 
 class TRVerticalNestedState implements TRState {
-    public collapsible: Map<string, boolean> = new Map<string, boolean>();
+    public collapsible: {[key: string]: any} = {};
 }
 
 export interface TRVerticalNestedProps extends TRProps {
@@ -52,7 +52,7 @@ class TRVerticalNestedList extends TRReactComponent<TRVerticalNestedProps, TRVer
     }
 
     private getMapKey(index: any) {
-        return index + "mapKey";
+        return "map_key_" + index;
     }
 
     private onClickItem(event: any, data: TRListData, index: any) {
@@ -62,55 +62,59 @@ class TRVerticalNestedList extends TRReactComponent<TRVerticalNestedProps, TRVer
         if (data.nested && data.nested.length) {
             let mapKey = this.getMapKey(index);
             this.setState((state: any) => {
-                let map = state.collapsible;
-                let toggle = !map.get(mapKey)
-                map.set(mapKey, toggle);
-                console.log(state);
-                console.log(map);
-                console.log(toggle);
-                state.collapsible.set(mapKey, toggle)
-                return {collapsible: state.collapsible}
+                let map = {...state.collapsible};
+                map[mapKey] = !map[mapKey];
+                return {collapsible: map};
             });
-            console.log(this.state.collapsible)
         }
+    }
+
+    private processCollapsibleArrow(index: any, data: TRListData) {
+        let view: any = "";
+        if (data.nested && data.nested.length) {
+            let mapKey = this.getMapKey(index);
+            let ExpandLess = data.expandLessIcon;
+            let ExpandMore = data.expandMoreIcon;
+            {
+                view = this.state.collapsible[mapKey] ? <ExpandMore/> : <ExpandLess/>
+            }
+        }
+        return view;
     }
 
     private processCollapsible(classes: any, index: any, data: TRListData) {
         let view: any = "";
         if (data.nested && data.nested.length) {
             let mapKey = this.getMapKey(index);
-            this.state.collapsible.set(mapKey, false);
-            let ExpandLess = data.expandLessIcon;
-            let ExpandMore = data.expandMoreIcon;
-            {
-                view = this.state.collapsible.get(mapKey) ? <ExpandMore/> : <ExpandLess/>
-            }
+            this.state.collapsible.mapKey = true;
             return (
-                <React.Fragment>
-                    {view}
-                    <Collapse in={this.state.collapsible.get(mapKey)} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            {this.getListItem(data.nested, classes)}
-                        </List>
-                    </Collapse>
-                </React.Fragment>
+                <Collapse in={this.state.collapsible[mapKey]} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        {this.getListItem(data.nested, classes, classes)}
+                    </List>
+                </Collapse>
             );
         }
         return view;
     }
 
 
-    private getListItem(itemList: Array<TRListData>, classes?: any) {
+    private getListItem(itemList: Array<TRListData>, styleClass: any, classes?: any) {
         return (
             itemList.map((data: TRListData, index: any) => {
                 return (
-                    <ListItem className={classes!.nested}
-                              button key={data.name} onClick={(event: any) => {
-                        this.onClickItem(event, data, index)}}>
-                        {this.getIcon(data.icon)}
-                        <ListItemText primary={data.label}/>
-                        {this.processCollapsible(classes, index, data)}
-                    </ListItem>
+                    <React.Fragment>
+                        <ListItem
+                            className={classes ? classes.nested : undefined}
+                            button key={data.name} onClick={(event: any) => {
+                            this.onClickItem(event, data, index)
+                        }}>
+                            {this.getIcon(data.icon)}
+                            <ListItemText primary={data.label}/>
+                            {this.processCollapsibleArrow(index, data)}
+                        </ListItem>
+                        {this.processCollapsible(styleClass, index, data)}
+                    </React.Fragment>
                 );
             })
         );

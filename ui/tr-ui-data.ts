@@ -342,12 +342,12 @@ class TRListDataHelper {
 
     constructor(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any) {
         this.key = name;
-        this.mainListMap.set(name, new TRListData(name, label, icon, action, actionCallbackData))
+        this.mainListMap.set(name, new TRListData(name, label, icon, action, actionCallbackData));
     }
 
     add(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any): TRListDataHelper {
         this.key = name;
-        this.mainListMap.set(name, new TRListData(name, label, icon, action, actionCallbackData))
+        this.mainListMap.set(name, new TRListData(name, label, icon, action, actionCallbackData));
         return this;
     }
 
@@ -373,7 +373,7 @@ class TRListDataHelper {
     }
 
     public addChild(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any): TRListDataHelper {
-        this.child = new TRListDataHelper(name, label, icon, action, actionCallbackData)
+        this.child = new TRListDataHelper(name, label, icon, action, actionCallbackData);
         return this.child;
     }
 

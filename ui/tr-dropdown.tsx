@@ -5,8 +5,6 @@ import {
     Button,
     ClickAwayListener,
     Grow,
-    IconButton,
-    ListIcon, Menu,
     MenuItem,
     MenuList,
     MoreVertIcon,
@@ -85,8 +83,7 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
                                 <MenuList
                                     classes={dropdownStyle ? dropdownStyle!.menuList!.classes : undefined}
                                     className={dropdownStyle ? dropdownStyle!.menuList!.className : undefined}
-                                    style={dropdownStyle ? dropdownStyle!.menuList!.style : undefined}
-                                >
+                                    style={dropdownStyle ? dropdownStyle!.menuList!.style : undefined}>
                                     {
                                         this.props.actions.map((definition: TRDropdownData, key: any) => {
                                             return (

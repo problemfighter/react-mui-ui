@@ -2,6 +2,7 @@ import TRReactComponent from "tm-react/src/artifacts/framework/tr-react-componen
 import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
 import {
+    DesignProps,
     OnActionFunction,
     TRConfirmAlertDialogProps,
     TRDropdownData,
@@ -10,7 +11,8 @@ import {
 } from "./tr-ui-data";
 import TRDropdown, {DropdownStyle} from "./tr-dropdown";
 import TRAlertDialog from "./tr-alert-dialog";
-import {Icon, ListItemIcon} from "./ui-component";
+import {Icon, ListItemIcon, Paper} from "./ui-component";
+import TRStyleHelper from "../src/tr-style-helper";
 
 class TRTableActionState implements TRState {
     public showConfirmation: boolean = false;
@@ -19,6 +21,11 @@ class TRTableActionState implements TRState {
 interface TRTableActionProps extends TRProps {
     actions: Map<string, TRTableActionData>;
     dropdownStyle?: DropdownStyle
+    tableActionStyle?: TableActionStyle
+}
+
+export interface TableActionStyle {
+    icon?: DesignProps;
 }
 
 export default class TRTableAction extends TRReactComponent<TRTableActionProps, TRTableActionState> {
@@ -26,6 +33,8 @@ export default class TRTableAction extends TRReactComponent<TRTableActionProps, 
 
     state: TRTableActionState = new TRTableActionState();
     private confirmProps: TRConfirmAlertDialogProps = new TRConfirmAlertDialogProps();
+    private defStyle: TRStyleHelper = new TRStyleHelper(this.props, "tableActionStyle");
+
 
     private getIcon(icon: any): any {
         if (!icon) {
@@ -33,7 +42,11 @@ export default class TRTableAction extends TRReactComponent<TRTableActionProps, 
         }
         const RenderIcon = icon;
         return(
-            <ListItemIcon>
+            <ListItemIcon
+                classes={ this.defStyle.classes("icon")}
+                className={this.defStyle.className("icon")}
+                style={this.defStyle.style("icon")}
+            >
                 {typeof icon === "string" ? (
                     <Icon>{icon}</Icon>
                 ) : (

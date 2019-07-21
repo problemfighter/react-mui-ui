@@ -77,7 +77,7 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
 
 
     render() {
-        const defStyle: TRStyleHelper = new TRStyleHelper(this.props);
+        const defStyle: TRStyleHelper = new TRStyleHelper(this.props, "dropdownStyle");
         const {popperPlacementType, fadeTimeout} = this.props;
 
         return (<React.Fragment>

@@ -2,7 +2,7 @@ import TRReactComponent from "tm-react/src/artifacts/framework/tr-react-componen
 import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
 import TRFlashMessage, {Variant} from "./tr-flash-message";
-import {Button, ButtonGroup} from "./ui-component";
+import {Button, ButtonGroup, TableBody, TableCell, TableRow} from "./ui-component";
 import {TRDropdownDataHelper, TRTableActionDataHelper, TRTableHeaderDataHelper} from "./tr-ui-data";
 import TRDropdown from "./tr-dropdown";
 import TRDialog from "./tr-dialog";
@@ -12,6 +12,7 @@ import TRTableAction from "./tr-table-action";
 import TRTableHeader, {SortDirection} from "./tr-table-header";
 import TRDrawer, {SlideSide} from "./tr-drawer";
 import {TrUtil} from "tm-react/src/artifacts/util/tr-util";
+import {Table} from "@material-ui/core";
 
 class DemoState implements TRState{
     public showFlashMessage: boolean = false;
@@ -28,6 +29,37 @@ interface DemoProps extends TRProps{
     showFlashMessage: boolean;
 }
 
+const tableHeaderDefinition = TRTableHeaderDataHelper.init("Name", "name");
+tableHeaderDefinition.add("Client ID", "client_id");
+tableHeaderDefinition.add("Client Secret", "", false);
+tableHeaderDefinition.add("Callback URL", "", false);
+
+const rows = [
+    {
+        "name": "Name 1",
+        "client_id": "5632af9dc3ea45fe80d818b1fe5a77c0",
+        "client_secret": "b374d095160b47b0a66b85af2dc9deec",
+        "callback_url": "external-plugin-instance/callback",
+        "id": 8,
+        "uuid": "685CB382-0671-4CDB-8220-68593B874BE8"
+    },
+    {
+        "name": "Name 2",
+        "client_id": "5632af9dc3ea45fe80d818b1fe5a77c0",
+        "client_secret": "b374d095160b47b0a66b85af2dc9deec",
+        "callback_url": "external-plugin-instance/callback",
+        "id": 8,
+        "uuid": "685CB382-0671-4CDB-8220-68593B874BE8"
+    },
+    {
+        "name": "Name 3",
+        "client_id": "5632af9dc3ea45fe80d818b1fe5a77c0",
+        "client_secret": "b374d095160b47b0a66b85af2dc9deec",
+        "callback_url": "external-plugin-instance/callback",
+        "id": 8,
+        "uuid": "685CB382-0671-4CDB-8220-68593B874BE8"
+    },
+];
 
 export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
 
@@ -268,6 +300,44 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
                 autoClose={false}/>
 
             {this.title("Table")}
+            <Table>
+                <TRTableHeader
+                    clickForSortFunction={
+                        {
+                            click(event: any, onClickData: any): void {
+                                console.log("Clicked");
+                                if (component.state.sortDirection === SortDirection.ascending){
+                                    component.setState({
+                                        sortDirection: SortDirection.descending
+                                    })
+                                } else{
+                                    component.setState({
+                                        sortDirection: SortDirection.ascending
+                                    })
+                                }
+
+                            }
+                        }
+                    }
+                    headers={tableHeaderDefinition.getHeaders()}
+                    orderBy={this.state.orderBy}
+                    sortDirection={this.state.sortDirection}/>
+                <TableBody>
+                    {rows.map((row: any) => (
+                        <TableRow key={row.name} >
+                            <TableCell component="th" align="center" scope="row">
+                                {row.name}
+                            </TableCell>
+                            <TableCell align="center">{row.client_id}</TableCell>
+                            <TableCell align="center">{row.client_secret}</TableCell>
+                            <TableCell align="center">{row.callback_url}</TableCell>
+                            <TableCell align="center">
+                                <TRTableAction actions={tableAction.getMap()}/>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
             {this.title("Pagination")}
             {this.title("Navigation")}
             {this.title("Searchable Dropdown")}

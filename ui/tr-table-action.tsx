@@ -10,6 +10,7 @@ import {
 } from "./tr-ui-data";
 import TRDropdown, {DropdownStyle} from "./tr-dropdown";
 import TRAlertDialog from "./tr-alert-dialog";
+import {Icon, ListItemIcon} from "./ui-component";
 
 class TRTableActionState implements TRState {
     public showConfirmation: boolean = false;
@@ -26,10 +27,25 @@ export default class TRTableAction extends TRReactComponent<TRTableActionProps, 
     state: TRTableActionState = new TRTableActionState();
     private confirmProps: TRConfirmAlertDialogProps = new TRConfirmAlertDialogProps();
 
+    private getIcon(icon: any): any {
+        if (!icon) {
+            return ""
+        }
+        const RenderIcon = icon;
+        return(
+            <ListItemIcon>
+                {typeof icon === "string" ? (
+                    <Icon>{icon}</Icon>
+                ) : (
+                    <RenderIcon/>
+                )}
+            </ListItemIcon>
+        );
+    }
+
     private getName(label: string, icon: any) {
-        const Icon = icon;
         return (<React.Fragment>
-            {(<Icon/> ) } {label}
+            {this.getIcon(icon)} {label}
         </React.Fragment>)
     }
 

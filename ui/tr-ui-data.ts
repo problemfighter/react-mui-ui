@@ -53,7 +53,6 @@ class TRDropdownDataHelper {
 // DROP DOWN DATA
 
 
-
 class TRConfirmAlertDialogProps {
     public cancelFunction?: OnActionFunction;
     public cancelLabel?: string = "Cancel";
@@ -71,7 +70,7 @@ class TRTableActionData {
     public url?: string;
     public action?: OnActionFunction;
     public actionCallbackData?: any;
-    public icon: any = StopIcon;
+    public icon?: any = StopIcon;
     public confirmation?: TRConfirmAlertDialogProps;
 
 
@@ -81,12 +80,27 @@ class TRTableActionData {
         this.icon = icon;
     }
 
-    public setAction(action: OnActionFunction): TRTableActionData{
+    public setUrl(url: string): TRTableActionData {
+        this.url = url;
+        return this;
+    }
+
+    public setActionCallbackData(actionCallbackData: any): TRTableActionData {
+        this.actionCallbackData = actionCallbackData;
+        return this;
+    }
+
+    public setIcon(icon: any): TRTableActionData {
+        this.icon = icon;
+        return this;
+    }
+
+    public setAction(action: OnActionFunction): TRTableActionData {
         this.action = action;
         return this;
     }
 
-    public setCallbackData(actionCallbackData: any): TRTableActionData{
+    public setCallbackData(actionCallbackData: any): TRTableActionData {
         this.actionCallbackData = actionCallbackData;
         return this;
     }
@@ -96,16 +110,16 @@ class TRTableActionData {
         return this;
     }
 
-    public updateConfirmationAction(okayFunction?: OnActionFunction, cancelFunction?: OnActionFunction): TRTableActionData{
-        if (this.confirmation){
+    public updateConfirmationAction(okayFunction?: OnActionFunction, cancelFunction?: OnActionFunction): TRTableActionData {
+        if (this.confirmation) {
             this.confirmation.okayFunction = okayFunction;
             this.confirmation.cancelFunction = cancelFunction;
         }
         return this;
     }
 
-    public updateConfirmationCancelAction(cancelFunction: OnActionFunction): TRTableActionData{
-        if (this.confirmation){
+    public updateConfirmationCancelAction(cancelFunction: OnActionFunction): TRTableActionData {
+        if (this.confirmation) {
             this.confirmation.cancelFunction = cancelFunction;
         }
         return this;
@@ -130,7 +144,7 @@ class TRTableActionDataHelper {
 
     private actions: Map<string, TRTableActionData> = new Map<string, TRTableActionData>();
 
-    public getAction(name: string): any{
+    public getAction(name: string): any {
         return this.actions.get(name);
     }
 
@@ -143,7 +157,7 @@ class TRTableActionDataHelper {
         return this.actions;
     }
 
-    public addAction(label: string): TRTableActionData | undefined {
+    public addAction(label: string): TRTableActionData | any {
         this.actions.set(label, TRTableActionData.instance(label));
         return this.actions.get(label);
     }
@@ -161,6 +175,7 @@ class TRTableActionDataHelper {
     }
 
 }
+
 // TABLE ACTION DATA
 
 
@@ -182,7 +197,6 @@ class TRTableHeaderData {
     public fieldName?: string;
 
 
-
     constructor(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string, align: Align = Align.center) {
         this.fieldName = fieldName;
         this.enableSort = enableSort;
@@ -191,23 +205,23 @@ class TRTableHeaderData {
         this.align = align;
     }
 
-    public setAlign(align: Align): TRTableHeaderData{
+    public setAlign(align: Align): TRTableHeaderData {
         this.align = align;
         return this;
     }
 
-    public setDisablePadding(disablePadding: boolean): TRTableHeaderData{
+    public setDisablePadding(disablePadding: boolean): TRTableHeaderData {
         this.disablePadding = disablePadding;
         return this;
     }
 
 
-    public setEnableSort(enableSort: boolean): TRTableHeaderData{
+    public setEnableSort(enableSort: boolean): TRTableHeaderData {
         this.enableSort = enableSort;
         return this;
     }
 
-    public setTooltip(tooltip: string): TRTableHeaderData{
+    public setTooltip(tooltip: string): TRTableHeaderData {
         this.tooltip = tooltip;
         return this;
     }
@@ -231,7 +245,7 @@ class TRTableHeaderDataHelper {
         return this.headers;
     }
 
-    public static init(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string, align: Align = Align.center):TRTableHeaderDataHelper {
+    public static init(label: string, fieldName: string, enableSort: boolean = true, tooltip?: string, align: Align = Align.center): TRTableHeaderDataHelper {
         let init: TRTableHeaderDataHelper = new TRTableHeaderDataHelper();
         init.addData(new TRTableHeaderData(label, fieldName, enableSort, tooltip).setAlign(align));
         return init;
@@ -310,12 +324,12 @@ class TRListData {
         return this;
     }
 
-    public setNested(nested:  Array<TRListData>): TRListData {
+    public setNested(nested: Array<TRListData>): TRListData {
         this.nested = nested;
         return this;
     }
 
-    public addNestedItem(nested:  TRListData): TRListData {
+    public addNestedItem(nested: TRListData): TRListData {
         this.nested.push(nested);
         return this;
     }
@@ -331,7 +345,7 @@ class TRListDataHelper {
         this.mainListMap.set(name, new TRListData(name, label, icon, action, actionCallbackData))
     }
 
-    add(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any):TRListDataHelper {
+    add(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any): TRListDataHelper {
         this.key = name;
         this.mainListMap.set(name, new TRListData(name, label, icon, action, actionCallbackData))
         return this;
@@ -363,8 +377,8 @@ class TRListDataHelper {
         return this.child;
     }
 
-    public addToParent(): TRListDataHelper{
-        if (this.child){
+    public addToParent(): TRListDataHelper {
+        if (this.child) {
             this.mainListMap!.get(this.key)!.setNested(this.child.getList())
         }
         this.child = undefined;

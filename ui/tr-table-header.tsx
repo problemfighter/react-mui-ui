@@ -37,7 +37,7 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
     private enableSorting(sortDirection: SortDirection, orderBy: any, definition: TRTableHeaderData) {
         if (!definition.enableSort) {
             let title = (definition.tooltip ? definition.tooltip : definition.label);
-            return (<Tooltip title={title}><span>{definition.label}</span></Tooltip>);
+            return (<Tooltip title={title}><React.Fragment>{definition.label}</React.Fragment></Tooltip>);
         } else {
             return (<Tooltip
                     title={definition.tooltip ? definition.tooltip : definition.label} enterDelay={300}>
@@ -50,22 +50,27 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
 
     render() {
         const {sortDirection, orderBy, headers, enableActionColumn, actionColumnName, actionColumnAlign} = this.props;
-        let actionHeader: any = "";
+        let actionHeader: any = (<React.Fragment/>);
         if (enableActionColumn) {
-            actionHeader = (<TableCell align={actionColumnAlign}><Tooltip title={actionColumnName}><span>{actionColumnName}</span></Tooltip></TableCell>);
+            actionHeader = (<TableCell align={actionColumnAlign}><Tooltip title={actionColumnName}><React.Fragment>{actionColumnName}</React.Fragment></Tooltip></TableCell>);
         }
-        return (<React.Fragment>
-            <TableHead>
-                <TableRow>{headers.map((definition: TRTableHeaderData, key: any) => {
-                        return (<TableCell
+        return (
+            <React.Fragment>
+                <TableHead>
+                    <TableRow>{headers.map((definition: TRTableHeaderData, key: any) => {
+                        return (
+                            <TableCell
                                 variant="head"
                                 key={key}
                                 align={definition.align}
                                 padding={definition.disablePadding ? 'none' : 'default'}
-                                sortDirection={false}>{this.enableSorting(sortDirection, orderBy, definition)}</TableCell>
+                                sortDirection={orderBy === definition.fieldName ? sortDirection : false}>
+                                {this.enableSorting(sortDirection, orderBy, definition)}
+                            </TableCell>
                         );
                     })}{actionHeader}</TableRow>
-            </TableHead>
-        </React.Fragment>);
+                </TableHead>
+            </React.Fragment>
+        );
     }
 }

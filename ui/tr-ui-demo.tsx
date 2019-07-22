@@ -41,8 +41,8 @@ interface DemoProps extends TRProps{
 
 const tableHeaderDefinition = TRTableHeaderDataHelper.init("Name", "name");
 tableHeaderDefinition.add("Client ID", "client_id");
-tableHeaderDefinition.add("Client Secret", "", false);
-tableHeaderDefinition.add("Callback URL", "", false);
+tableHeaderDefinition.add("Client Secret", "client_secret", false);
+tableHeaderDefinition.add("Callback URL", "call_back", false);
 
 const rows = [
     {
@@ -278,27 +278,30 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
 
 
             {this.title("Table Header")}
-            <TRTableHeader headers={tableHeader.getHeaders()}
-                           orderBy={this.state.orderBy}
-                           sortDirection={this.state.sortDirection}
-                           enableActionColumn={false}
-                           clickForSortFunction={
-                               {
-                                   click(event: any, onClickData: any): void {
-                                       console.log("Clicked");
-                                       if (component.state.sortDirection === SortDirection.ascending){
-                                           component.setState({
-                                               sortDirection: SortDirection.descending
-                                           })
-                                       } else{
-                                           component.setState({
-                                               sortDirection: SortDirection.ascending
-                                           })
-                                       }
+            <Table>
+                <TRTableHeader headers={tableHeader.getHeaders()}
+                               orderBy={this.state.orderBy}
+                               sortDirection={this.state.sortDirection}
+                               enableActionColumn={false}
+                               clickForSortFunction={
+                                   {
+                                       click(event: any, onClickData: any): void {
+                                           console.log("Clicked");
+                                           if (component.state.sortDirection === SortDirection.ascending){
+                                               component.setState({
+                                                   sortDirection: SortDirection.descending
+                                               })
+                                           } else{
+                                               component.setState({
+                                                   sortDirection: SortDirection.ascending
+                                               })
+                                           }
 
+                                       }
                                    }
-                               }
-                           }/>
+                               }/>
+                <TableBody/>
+            </Table>
 
             {this.title("Vertical Nested List")}
             <TRVerticalNestedList itemList={listData.getList()}/>

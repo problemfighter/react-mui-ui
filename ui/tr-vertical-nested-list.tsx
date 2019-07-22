@@ -103,7 +103,7 @@ class TRVerticalNestedList extends TRReactComponent<TRVerticalNestedProps, TRVer
         return (
             itemList.map((data: TRListData, index: any) => {
                 return (
-                    <React.Fragment>
+                    <React.Fragment key={index}>
                         <ListItem
                             className={classes ? classes.nested : undefined}
                             button key={data.name} onClick={(event: any) => {

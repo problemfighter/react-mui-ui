@@ -55,22 +55,20 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
             actionHeader = (<TableCell align={actionColumnAlign}><Tooltip title={actionColumnName}><React.Fragment>{actionColumnName}</React.Fragment></Tooltip></TableCell>);
         }
         return (
-            <React.Fragment>
-                <TableHead>
-                    <TableRow>{headers.map((definition: TRTableHeaderData, key: any) => {
-                        return (
-                            <TableCell
-                                variant="head"
-                                key={key}
-                                align={definition.align}
-                                padding={definition.disablePadding ? 'none' : 'default'}
-                                sortDirection={orderBy === definition.fieldName ? sortDirection : false}>
-                                {this.enableSorting(sortDirection, orderBy, definition)}
-                            </TableCell>
-                        );
-                    })}{actionHeader}</TableRow>
-                </TableHead>
-            </React.Fragment>
+            <TableHead>
+                <TableRow>{headers.map((definition: TRTableHeaderData, key: any) => {
+                    return (
+                        <TableCell
+                            variant="head"
+                            key={key}
+                            align={definition.align}
+                            padding={definition.disablePadding ? 'none' : 'default'}
+                            sortDirection={orderBy === definition.fieldName ? sortDirection : false}>
+                            {this.enableSorting(sortDirection, orderBy, definition)}
+                        </TableCell>
+                    );
+                })}{actionHeader}</TableRow>
+            </TableHead>
         );
     }
 }

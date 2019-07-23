@@ -43,15 +43,15 @@ export default class FormDemo extends TRComponent<Props, State> {
         console.log(this.state.formData);
     }
 
-    renderUI() {
+    render() {
         return (
             <React.Fragment>
                 <form onSubmit={(event: any) => {
                     this.onSubmit(event)
                 }} noValidate>
-                    <TextField {...this.handleInputDataChange("email")}/>
+                    <TextField {...this.handleInputDataChange("email")} label="Email Address"/>
                     <br/>
-                    <TextField {...this.handleInputDataChange("password")} type="password"/>
+                    <TextField {...this.handleInputDataChange("password")} type="password" label="Password"/>
                     <br/>
                     <br/>
                     <Button type="submit" variant="contained">Submit</Button>

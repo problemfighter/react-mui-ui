@@ -170,6 +170,12 @@ class TRTableActionDataHelper {
         return trTableActionDataHelper;
     }
 
+    public static start(name: string, icon:any, actionCallbackData?: any) {
+        let trTableActionDataHelper: TRTableActionDataHelper = new TRTableActionDataHelper();
+        trTableActionDataHelper.actions.set(name, new TRTableActionData(name, icon).addActionCallbackData(actionCallbackData));
+        return trTableActionDataHelper;
+    }
+
     public static commonActionMap(actionCallbackData?: any) {
         return this.commonActions(actionCallbackData).getMap();
     }

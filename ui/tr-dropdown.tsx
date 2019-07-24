@@ -12,11 +12,10 @@ import {
     Popper
 } from "./ui-component";
 import {DesignProps, TRDropdownData} from "./tr-ui-data";
-import {TrUtil} from "tm-react/src/artifacts/util/tr-util";
 import TRStyleHelper from "../src/tr-style-helper";
 
 
-class TRTableActionState implements TRState {
+class TRDropdownState implements TRState {
     public anchorRef: any = React.createRef();
     public open: boolean = false;
 }
@@ -44,21 +43,23 @@ export interface DropdownStyle {
     menuItem?: DesignProps;
 }
 
-class TRTableActionProps implements TRProps {
+class TRDropdownProps implements TRProps {
     public actions: Array<TRDropdownData> = [];
     public dropdownStyle?: DropdownStyle;
     public popperPlacementType?: PopperPlacementType = PopperPlacementType.BOTTOM_END;
     public fadeTimeout?: number = 350;
+    public clickIcon?: any;
 }
 
-export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRTableActionState> {
+export default class TRDropdown extends TRReactComponent<TRDropdownProps, TRDropdownState> {
 
     static defaultProps = {
         popperPlacementType: PopperPlacementType.BOTTOM_END,
-        fadeTimeout: 350
+        fadeTimeout: 350,
+        clickIcon: MoreVertIcon
     };
 
-    state: TRTableActionState = new TRTableActionState();
+    state: TRDropdownState = new TRDropdownState();
 
     handleClick = (event: any) => {
         this.setState({anchorRef: event.currentTarget});
@@ -78,19 +79,16 @@ export default class TRDropdown extends TRReactComponent<TRTableActionProps, TRT
 
     render() {
         const defStyle: TRStyleHelper = new TRStyleHelper(this.props, "dropdownStyle");
-        const {popperPlacementType, fadeTimeout} = this.props;
-
+        const {popperPlacementType, fadeTimeout, clickIcon} = this.props;
+        const ClickIcon = clickIcon;
         return (<React.Fragment>
             <Button
                 classes={ defStyle.classes("actionButton")}
                 className={defStyle.className("actionButton")}
                 style={defStyle.style("actionButton")}
                 ref={this.state.anchorRef}
-                aria-label="More"
-                aria-owns={this.state.open ? 'long-menu' : undefined}
-                aria-haspopup="true"
                 onClick={(event: any) => {this.handleClick(event)}}>
-                <MoreVertIcon/>
+                <ClickIcon/>
             </Button>
 
             <Popper open={this.state.open} anchorEl={this.state.anchorRef} placement={popperPlacementType} transition >

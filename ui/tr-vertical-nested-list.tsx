@@ -36,13 +36,16 @@ export interface NestedListStyle {
 export interface TRVerticalNestedProps extends TRProps {
     itemList: Array<TRListData>;
     classes: any
+    allOpen: boolean
     nestedListStyle?: NestedListStyle
 }
 
 class TRVerticalNestedList extends TRReactComponent<TRVerticalNestedProps, TRVerticalNestedState> {
 
     state: TRVerticalNestedState = new TRVerticalNestedState();
-    static defaultProps = {};
+    static defaultProps = {
+        allOpen: true
+    };
     private defStyle: TRStyleHelper = new TRStyleHelper(this.props, "nestedListStyle");
     constructor(props: TRVerticalNestedProps){
         super(props);
@@ -81,6 +84,13 @@ class TRVerticalNestedList extends TRReactComponent<TRVerticalNestedProps, TRVer
             this.setState((state: any) => {
                 let map = {...state.collapsible};
                 map[mapKey] = !map[mapKey];
+                if (!this.props.allOpen){
+                    for (let item in map) {
+                        if (mapKey !== item){
+                            map[item] = false
+                        }
+                    }
+                }
                 return {collapsible: map};
             });
         }

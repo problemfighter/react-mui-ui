@@ -70,6 +70,7 @@ export {
     Menu as Menu,
     Divider as Divider,
     Checkbox as Checkbox,
+    InputAdornment as InputAdornment,
     FormControlLabel as FormControlLabel,
     ListItemIcon as ListItemIcon, Icon as Icon,
     List as List, Collapse as Collapse,Table as Table,

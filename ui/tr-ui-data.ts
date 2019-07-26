@@ -274,18 +274,7 @@ class TRPaginationData {
 
 // PAGINATION DATA
 
-// SELECT DATA
-class TRSelectData {
-    public total: number = 0;
-    public itemPerPage: number = 0;
-    public offset: number = 0;
-    public component: any = "div";
-    public backButtonProps: any = "Previous Page";
-    public nextButtonProps: any = "Next Page";
-    public itemPerPageDropdown: Array<number> = [10, 20, 50, 100, 500, 1000];
-}
 
-// SELECT DATA
 
 // LIST DATA
 class TRListData {

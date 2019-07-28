@@ -41,6 +41,7 @@ export interface DropdownStyle {
     paper?: DesignProps;
     menuList?: DesignProps;
     menuItem?: DesignProps;
+    popper?: DesignProps;
 }
 
 class TRDropdownProps implements TRProps {
@@ -91,7 +92,10 @@ export default class TRDropdown extends TRReactComponent<TRDropdownProps, TRDrop
                 <ClickIcon/>
             </Button>
 
-            <Popper open={this.state.open} anchorEl={this.state.anchorRef} placement={popperPlacementType} transition >
+            <Popper
+                className={defStyle.className("popper")}
+                style={defStyle.style("popper")}
+                open={this.state.open} anchorEl={this.state.anchorRef} placement={popperPlacementType} transition >
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={fadeTimeout}>
                         <Paper

@@ -346,6 +346,10 @@ class TRListDataHelper {
         return this;
     }
 
+    getItem(name: string): TRListData | any {
+        return this.mainListMap.get(name);
+    }
+
     public more(): any {
         return this.mainListMap.get(this.key)
     }

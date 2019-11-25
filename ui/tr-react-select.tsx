@@ -249,14 +249,11 @@ class TRReactSelect extends TRReactComponent<Props, State> {
 
     lisToOptionType(props: Props){
         let optionData : { [key: string]: any } = {};
-
         optionData.options = [];
         optionData.selected = null;
-
         if (props.options && props.optionValue && props.optionLabel) {
             let items: Array<OptionType> = [];
             props.options.map(item => {
-                console.log(item);
                 items.push({value: item[props.optionValue], label: item[props.optionLabel]})
                 if (props.value && props.value == item[props.optionValue]){
                     optionData.selected = {value: item[props.optionValue], label: item[props.optionLabel]}

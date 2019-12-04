@@ -125,11 +125,11 @@ class TRTableActionData {
         return this;
     }
 
-    public addConfirmation(): TRTableActionData {
-        let confirmation = new TRConfirmAlertDialogProps()
-        confirmation.title = "Confirm";
-        confirmation.message = "Are you sure want to delete?";
-        confirmation.okayLabel = "Confirm";
+    public addConfirmation(message: string = "Are you sure want to delete?", title: string = "Confirm", okayLabel: string = "Confirm"): TRTableActionData {
+        let confirmation = new TRConfirmAlertDialogProps();
+        confirmation.title = title;
+        confirmation.message = message;
+        confirmation.okayLabel = okayLabel;
         confirmation.cancelLabel = "Cancel";
         this.confirmation = confirmation;
         return this;

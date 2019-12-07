@@ -50,6 +50,9 @@ class TRDropdownProps implements TRProps {
     public popperPlacementType?: PopperPlacementType = PopperPlacementType.BOTTOM_END;
     public fadeTimeout?: number = 350;
     public clickIcon?: any;
+    public actionChild?: any;
+    public buttonVariant?: any;
+    public buttonColor?: any;
 }
 
 export default class TRDropdown extends TRReactComponent<TRDropdownProps, TRDropdownState> {
@@ -57,7 +60,9 @@ export default class TRDropdown extends TRReactComponent<TRDropdownProps, TRDrop
     static defaultProps = {
         popperPlacementType: PopperPlacementType.BOTTOM_END,
         fadeTimeout: 350,
-        clickIcon: MoreVertIcon
+        clickIcon: MoreVertIcon,
+        buttonVariant: 'text',
+        buttonColor: 'default',
     };
 
     state: TRDropdownState = new TRDropdownState();
@@ -80,16 +85,23 @@ export default class TRDropdown extends TRReactComponent<TRDropdownProps, TRDrop
 
     render() {
         const defStyle: TRStyleHelper = new TRStyleHelper(this.props, "dropdownStyle");
-        const {popperPlacementType, fadeTimeout, clickIcon} = this.props;
+        const {popperPlacementType, fadeTimeout, clickIcon, actionChild, buttonVariant, buttonColor} = this.props;
         const ClickIcon = clickIcon;
+        let actionChildView = <ClickIcon/>;
+        if (actionChild){
+            actionChildView = actionChild;
+        }
+
         return (<React.Fragment>
             <Button
+                color={buttonColor}
+                variant={buttonVariant}
                 classes={ defStyle.classes("actionButton")}
                 className={defStyle.className("actionButton")}
                 style={defStyle.style("actionButton")}
                 ref={this.state.anchorRef}
                 onClick={(event: any) => {this.handleClick(event)}}>
-                <ClickIcon/>
+                {actionChildView}
             </Button>
 
             <Popper

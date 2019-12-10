@@ -208,6 +208,8 @@ interface Props extends TRProps {
     optionValue: string;
     value?: string;
     onChange?: any;
+    helperText?: any;
+    error?: boolean;
 }
 
 class State implements TRState {
@@ -295,7 +297,7 @@ class TRReactSelect extends TRReactComponent<Props, State> {
     }
 
     render() {
-        const {classes, inputId, isMulti, placeholder, label, value} = this.props;
+        const {classes, inputId, isMulti, placeholder, label, value, helperText, error} = this.props;
         // const theme = useTheme();
         let placeholderLabel = label;
         if (placeholder !== "PLACEHOLDER"){
@@ -327,6 +329,8 @@ class TRReactSelect extends TRReactComponent<Props, State> {
                         TextFieldProps={{
                             label: label,
                             autoComplete: 'off',
+                            helperText: helperText,
+                            error: error,
                             InputLabelProps: {
                                 htmlFor: inputId,
                                 shrink: true,

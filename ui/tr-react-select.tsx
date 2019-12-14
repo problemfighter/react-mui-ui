@@ -243,7 +243,7 @@ class TRReactSelect extends TRReactComponent<Props, State> {
     }
 
     componentDidUpdate(prevProps: Props) {
-        if (prevProps.options !== this.props.options){
+        if (prevProps.options !== this.props.options || prevProps.value !== this.props.value){
             this.loadOption();
         }
     }

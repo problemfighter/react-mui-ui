@@ -5,7 +5,7 @@ import {TextField} from "./ui-component";
 import {Autocomplete} from "@material-ui/lab";
 
 class State implements TRState {
-    value: any = undefined;
+    value: { [key: string]: any } = {};
     options: Array<any> = [];
 }
 

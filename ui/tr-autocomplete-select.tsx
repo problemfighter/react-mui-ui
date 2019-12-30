@@ -16,7 +16,7 @@ export interface Props extends TRProps {
 
     variant: any;
 
-    defaultValue?: any;
+    defaultValue?: any ;
     margin?: any;
 
     name?: string;
@@ -60,9 +60,16 @@ export default class TRAutocompleteSelect extends TRReactComponent<Props, State>
         }
     }
 
+    isEmptyObject (data: any) {
+        return Object.keys(data).length === 0;
+    }
+
     componentDidMount() {
         this.setOptions();
         this.setValue(this.props.value);
+        if (this.isEmptyObject(this.state.value) && this.props.defaultValue){
+            this.setState({value: this.props.defaultValue})
+        }
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -73,12 +80,13 @@ export default class TRAutocompleteSelect extends TRReactComponent<Props, State>
     }
 
     render() {
+        let _this = this;
         const {
             isMulti, placeholder, variant, label, fullWidth, options, defaultValue, optionLabel,
             autoComplete, value, error, helperText, onChange, name, margin, optionValue
         } = this.props;
 
-        let _this = this;
+
         return (
             <React.Fragment>
                 <Autocomplete
@@ -86,7 +94,6 @@ export default class TRAutocompleteSelect extends TRReactComponent<Props, State>
                     multiple={isMulti}
                     options={_this.state.options}
                     getOptionLabel={(option: any) => option[optionLabel] ? option[optionLabel] : ""  }
-                    defaultValue={defaultValue}
                     value={_this.state.value}
                     onChange={(event: any, currentValue: any) => {
                         this.setState({value: currentValue});

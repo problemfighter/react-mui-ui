@@ -31,6 +31,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import PeopleIcon from '@material-ui/icons/People';
+import NoteIcon from '@material-ui/icons/Note';
 
 
 
@@ -117,7 +118,8 @@ export {
     AssignmentIcon,
     BarChartIcon,
     PeopleIcon,
-    DashboardIcon
+    DashboardIcon,
+    NoteIcon
 };
 
 

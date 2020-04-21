@@ -36,10 +36,13 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
 
     private enableSorting(sortDirection: SortDirection, orderBy: any, definition: TRTableHeaderData) {
         if (!definition.enableSort) {
+
             let title = (definition.tooltip ? definition.tooltip : definition.label);
+            // @ts-ignore
             return (<Tooltip title={title}><React.Fragment>{definition.label}</React.Fragment></Tooltip>);
         } else {
             return (<Tooltip
+                    // @ts-ignore
                     title={definition.tooltip ? definition.tooltip : definition.label} enterDelay={300}>
                     <TableSortLabel active={orderBy === definition.fieldName} direction={sortDirection}
                         onClick={(event: any) => {this.sortableHandler(definition, event)}}>{definition.label}</TableSortLabel>
@@ -52,7 +55,9 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
         const {sortDirection, orderBy, headers, enableActionColumn, actionColumnName, actionColumnAlign} = this.props;
         let actionHeader: any = (<React.Fragment/>);
         if (enableActionColumn) {
-            actionHeader = (<TableCell align={actionColumnAlign}><Tooltip title={actionColumnName}><React.Fragment>{actionColumnName}</React.Fragment></Tooltip></TableCell>);
+            actionHeader = (<TableCell align={actionColumnAlign}><Tooltip
+                // @ts-ignore
+                title={actionColumnName}><React.Fragment>{actionColumnName}</React.Fragment></Tooltip></TableCell>);
         }
         return (
             <TableHead>

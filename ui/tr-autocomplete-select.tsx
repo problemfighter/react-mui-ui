@@ -87,8 +87,10 @@ export default class TRAutocompleteSelect extends TRReactComponent<Props, State>
         } = this.props;
 
 
+
         return (
             <React.Fragment>
+                // @ts-ignore
                 <Autocomplete
                     autoComplete={autoComplete}
                     multiple={isMulti}

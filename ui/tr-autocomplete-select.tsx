@@ -88,9 +88,9 @@ export default class TRAutocompleteSelect extends TRReactComponent<Props, State>
 
 
 
+        // @ts-ignore
         return (
             <React.Fragment>
-                // @ts-ignore
                 <Autocomplete
                     autoComplete={autoComplete}
                     multiple={isMulti}
@@ -114,6 +114,7 @@ export default class TRAutocompleteSelect extends TRReactComponent<Props, State>
                             onChange(changeData);
                         }
                     }}
+                    // @ts-ignore
                     renderInput={ params => (
                         <TextField
                             {...params}

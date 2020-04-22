@@ -38,8 +38,10 @@ export default class TRTableHeader extends TRReactComponent<TRTableHeaderProps, 
         if (!definition.enableSort) {
 
             let title = (definition.tooltip ? definition.tooltip : definition.label);
-            // @ts-ignore
-            return (<Tooltip title={title}><React.Fragment>{definition.label}</React.Fragment></Tooltip>);
+
+            return (<Tooltip
+                // @ts-ignore
+                title={title}><React.Fragment>{definition.label}</React.Fragment></Tooltip>);
         } else {
             return (<Tooltip
                     // @ts-ignore

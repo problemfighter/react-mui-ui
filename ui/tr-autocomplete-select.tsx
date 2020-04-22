@@ -82,20 +82,20 @@ export default class TRAutocompleteSelect extends TRReactComponent<Props, State>
     render() {
         let _this = this;
         const {
-            isMulti, placeholder, variant, label, fullWidth, options, defaultValue, optionLabel,
+            placeholder, variant, label, fullWidth, options, defaultValue, optionLabel,
             autoComplete, value, error, helperText, onChange, name, margin, optionValue
         } = this.props;
 
+        let isMulti: any = this.props.isMulti
 
 
-        // @ts-ignore
         return (
             <React.Fragment>
                 <Autocomplete
                     autoComplete={autoComplete}
                     multiple={isMulti}
                     options={_this.state.options}
-                    getOptionLabel={(option: any) => option[optionLabel] ? option[optionLabel] : ""  }
+                    getOptionLabel={(option: any) => option[optionLabel] ? option[optionLabel] : ""}
                     value={_this.state.value}
                     onChange={(event: any, currentValue: any) => {
                         this.setState({value: currentValue});
@@ -114,8 +114,7 @@ export default class TRAutocompleteSelect extends TRReactComponent<Props, State>
                             onChange(changeData);
                         }
                     }}
-                    // @ts-ignore
-                    renderInput={ params => (
+                    renderInput={params => (
                         <TextField
                             {...params}
                             margin={margin}

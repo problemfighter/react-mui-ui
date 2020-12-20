@@ -74,119 +74,119 @@ export const ReactSelectStyles = (theme: Theme) =>
     });
 
 
-function NoOptionsMessage(props: NoticeProps<OptionType>) {
-    return (
-        <Typography
-            color="textSecondary"
-            className={props.selectProps.classes.noOptionsMessage}
-            {...props.innerProps}>
-            {props.children}
-        </Typography>
-    );
-}
-
-type InputComponentProps = Pick<BaseTextFieldProps, 'inputRef'> & HTMLAttributes<HTMLDivElement>;
-
-function inputComponent({inputRef, ...props}: InputComponentProps) {
-    return <div ref={inputRef} {...props} />;
-}
-
-function Control(props: ControlProps<OptionType>) {
-    const {
-        children,
-        innerProps,
-        innerRef,
-        selectProps: {classes, TextFieldProps},
-    } = props;
-
-    return (
-        <TextField
-            fullWidth
-            InputProps={{
-                inputComponent,
-                inputProps: {
-                    className: classes.input,
-                    ref: innerRef,
-                    children,
-                    ...innerProps,
-                },
-            }}
-            {...TextFieldProps}
-        />
-    );
-}
-
-function Option(props: OptionProps<OptionType>) {
-    return (
-        <MenuItem
-            ref={props.innerRef}
-            selected={props.isFocused}
-            component="div"
-            style={{
-                fontWeight: props.isSelected ? 500 : 400,
-            }}
-            {...props.innerProps}>
-            {props.children}
-        </MenuItem>
-    );
-}
-
-type MuiPlaceholderProps = Omit<PlaceholderProps<OptionType>, 'innerProps'> &
-    Partial<Pick<PlaceholderProps<OptionType>, 'innerProps'>>;
-
-function Placeholder(props: MuiPlaceholderProps) {
-    const {selectProps, innerProps = {}, children} = props;
-    return (
-        <Typography color="textSecondary" className={selectProps.classes.placeholder} {...innerProps}>
-            {children}
-        </Typography>
-    );
-}
-
-function SingleValue(props: SingleValueProps<OptionType>) {
-    return (
-        <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
-            {props.children}
-        </Typography>
-    );
-}
-
-function ValueContainer(props: ValueContainerProps<OptionType>) {
-    return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
-}
-
-function MultiValue(props: MultiValueProps<OptionType>) {
-    return (
-        <Chip
-            tabIndex={-1}
-            label={props.children}
-            className={clsx(props.selectProps.classes.chip, {
-                [props.selectProps.classes.chipFocused]: props.isFocused,
-            })}
-            onDelete={props.removeProps.onClick}
-            deleteIcon={<CancelIcon {...props.removeProps} />}
-        />
-    );
-}
-
-function Menu(props: MenuProps<OptionType>) {
-    return (
-        <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
-            {props.children}
-        </Paper>
-    );
-}
-
-const components = {
-    Control,
-    Menu,
-    MultiValue,
-    NoOptionsMessage,
-    Option,
-    Placeholder,
-    SingleValue,
-    ValueContainer,
-};
+// function NoOptionsMessage(props: NoticeProps<OptionType>) {
+//     return (
+//         <Typography
+//             color="textSecondary"
+//             className={props.selectProps.classes.noOptionsMessage}
+//             {...props.innerProps}>
+//             {props.children}
+//         </Typography>
+//     );
+// }
+//
+// type InputComponentProps = Pick<BaseTextFieldProps, 'inputRef'> & HTMLAttributes<HTMLDivElement>;
+//
+// function inputComponent({inputRef, ...props}: InputComponentProps) {
+//     return <div ref={inputRef} {...props} />;
+// }
+//
+// function Control(props: ControlProps<OptionType>) {
+//     const {
+//         children,
+//         innerProps,
+//         innerRef,
+//         selectProps: {classes, TextFieldProps},
+//     } = props;
+//
+//     return (
+//         <TextField
+//             fullWidth
+//             InputProps={{
+//                 inputComponent,
+//                 inputProps: {
+//                     className: classes.input,
+//                     ref: innerRef,
+//                     children,
+//                     ...innerProps,
+//                 },
+//             }}
+//             {...TextFieldProps}
+//         />
+//     );
+// }
+//
+// function Option(props: OptionProps<OptionType>) {
+//     return (
+//         <MenuItem
+//             ref={props.innerRef}
+//             selected={props.isFocused}
+//             component="div"
+//             style={{
+//                 fontWeight: props.isSelected ? 500 : 400,
+//             }}
+//             {...props.innerProps}>
+//             {props.children}
+//         </MenuItem>
+//     );
+// }
+//
+// type MuiPlaceholderProps = Omit<PlaceholderProps<OptionType>, 'innerProps'> &
+//     Partial<Pick<PlaceholderProps<OptionType>, 'innerProps'>>;
+//
+// function Placeholder(props: MuiPlaceholderProps) {
+//     const {selectProps, innerProps = {}, children} = props;
+//     return (
+//         <Typography color="textSecondary" className={selectProps.classes.placeholder} {...innerProps}>
+//             {children}
+//         </Typography>
+//     );
+// }
+//
+// function SingleValue(props: SingleValueProps<OptionType>) {
+//     return (
+//         <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
+//             {props.children}
+//         </Typography>
+//     );
+// }
+//
+// function ValueContainer(props: ValueContainerProps<OptionType>) {
+//     return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
+// }
+//
+// function MultiValue(props: MultiValueProps<OptionType>) {
+//     return (
+//         <Chip
+//             tabIndex={-1}
+//             label={props.children}
+//             className={clsx(props.selectProps.classes.chip, {
+//                 [props.selectProps.classes.chipFocused]: props.isFocused,
+//             })}
+//             onDelete={props.removeProps.onClick}
+//             deleteIcon={<CancelIcon {...props.removeProps} />}
+//         />
+//     );
+// }
+//
+// function Menu(props: MenuProps<OptionType>) {
+//     return (
+//         <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
+//             {props.children}
+//         </Paper>
+//     );
+// }
+//
+// const components = {
+//     Control,
+//     Menu,
+//     MultiValue,
+//     NoOptionsMessage,
+//     Option,
+//     Placeholder,
+//     SingleValue,
+//     ValueContainer,
+// };
 
 
 
@@ -338,7 +338,7 @@ class TRReactSelect extends TRReactComponent<Props, State> {
                         }}
                         placeholder={placeholderLabel}
                         options={this.state.options}
-                        components={components}
+                        // components={components}
                         isMulti={isMulti}
                     />
                 </NoSsr>

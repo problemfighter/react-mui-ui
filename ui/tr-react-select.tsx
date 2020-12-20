@@ -27,6 +27,7 @@ export const ReactSelectStyles = (theme: Theme) =>
             flexGrow: 1,
             // height: 245,
             minWidth: 200,
+            overflow: 'visible'
         },
         input: {
             display: 'flex',
@@ -38,7 +39,7 @@ export const ReactSelectStyles = (theme: Theme) =>
             flexWrap: 'wrap',
             flex: 1,
             alignItems: 'center',
-            overflow: 'hidden',
+            overflow: 'visible',
         },
         chip: {
             margin: theme.spacing(0.5, 0.25),
@@ -63,7 +64,7 @@ export const ReactSelectStyles = (theme: Theme) =>
         },
         paper: {
             position: 'absolute',
-            zIndex: 1,
+            zIndex: 1000000,
             marginTop: theme.spacing(1),
             left: 0,
             right: 0,

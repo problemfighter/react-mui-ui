@@ -211,6 +211,7 @@ interface Props extends TRProps {
     onChange?: any;
     helperText?: any;
     error?: boolean;
+    defaultLabel?: string;
 }
 
 class State implements TRState {
@@ -250,15 +251,22 @@ class TRReactSelect extends TRReactComponent<Props, State> {
     }
 
 
-    lisToOptionType(props: Props){
-        let optionData : { [key: string]: any } = {};
+    lisToOptionType(props: Props) {
+        let optionData: { [key: string]: any } = {};
         optionData.options = [];
         optionData.selected = null;
         if (props.options && props.optionValue && props.optionLabel) {
             let items: Array<OptionType> = [];
+
+            let defaultSelect = {value: "empty", label: props.defaultLabel + ""}
+            if (props.defaultLabel !== null) {
+                items.push(defaultSelect)
+                optionData.selected = defaultSelect;
+            }
+
             props.options.map(item => {
                 items.push({value: item[props.optionValue], label: item[props.optionLabel]})
-                if (props.value && props.value == item[props.optionValue]){
+                if (props.value && props.value === item[props.optionValue]) {
                     optionData.selected = {value: item[props.optionValue], label: item[props.optionLabel]}
                 }
             });

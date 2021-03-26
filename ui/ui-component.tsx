@@ -1,4 +1,3 @@
-import {WithStyles, Theme} from "@material-ui/core";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -33,11 +32,11 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import PeopleIcon from '@material-ui/icons/People';
 import NoteIcon from '@material-ui/icons/Note';
 
+// import {WithStyles, Theme} from "@material-ui/core";
+// export type WithStyles = WithStyles;
+// export type Theme = Theme;
 
-
-
-export type WithStyles = WithStyles;
-export type Theme = Theme;
+export type {WithStyles, Theme} from "@material-ui/core";
 
 export {
     useTheme as useTheme

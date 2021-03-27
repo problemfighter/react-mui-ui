@@ -202,7 +202,7 @@ class TRReactSelect extends TRReactComponent<Props, State> {
                         name={this.props.name}
                         value={this.state.value}
                         classes={classes}
-                        styles={selectStyles}
+                        // styles={selectStyles}
                         inputId={inputId}
                         onChange={(data:any) => {this.onChange(data)}}
                         TextFieldProps={{

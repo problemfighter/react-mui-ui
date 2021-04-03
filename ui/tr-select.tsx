@@ -2,9 +2,8 @@ import TRReactComponent from "tm-react/src/artifacts/framework/tr-react-componen
 import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
 import {
-    Button,
-    ClickAwayListener, ExpandLessIcon, ExpandMoreIcon, Fade, FormControl,
-    Grow, IconButton, Input, InputAdornment, InputLabel,
+    ClickAwayListener, ExpandMoreIcon, Fade, FormControl,
+    IconButton, Input, InputAdornment, InputLabel,
     MenuItem,
     MenuList,
     MoreVertIcon,
@@ -13,7 +12,6 @@ import {
 } from "./ui-component";
 import {DesignProps, TRDropdownData} from "./tr-ui-data";
 import TRStyleHelper from "../src/tr-style-helper";
-import {Chip} from "@material-ui/core";
 
 
 

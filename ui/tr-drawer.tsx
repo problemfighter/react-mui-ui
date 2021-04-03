@@ -1,7 +1,7 @@
 import TRReactComponent from "tm-react/src/artifacts/framework/tr-react-component";
 import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
-import {Dialog, DialogTitle, DialogContent, DialogActions, Drawer} from "./ui-component";
+import {Drawer} from "./ui-component";
 import {OnActionFunction} from "./tr-ui-data";
 
 export enum SlideSide {

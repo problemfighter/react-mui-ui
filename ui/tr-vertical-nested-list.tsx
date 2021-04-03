@@ -3,7 +3,7 @@ import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
 import {DesignProps, TRListData} from "./tr-ui-data";
 import {
-    Button, clsx,
+    clsx,
     Collapse, createStyles,
     Icon,
     List,

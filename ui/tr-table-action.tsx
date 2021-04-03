@@ -3,7 +3,6 @@ import {TRProps, TRState} from "tm-react/src/artifacts/model/tr-model";
 import React from "react";
 import {
     DesignProps,
-    OnActionFunction,
     TRConfirmAlertDialogProps,
     TRDropdownData,
     TRDropdownDataHelper,
@@ -11,7 +10,7 @@ import {
 } from "./tr-ui-data";
 import TRDropdown, {DropdownStyle} from "./tr-dropdown";
 import TRAlertDialog from "./tr-alert-dialog";
-import {Icon, ListItemIcon, Paper} from "./ui-component";
+import {Icon, ListItemIcon} from "./ui-component";
 import TRStyleHelper from "../src/tr-style-helper";
 
 class TRTableActionState implements TRState {

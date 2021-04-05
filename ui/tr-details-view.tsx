@@ -23,7 +23,6 @@ export default class TrDetailsView extends TRReactComponent<TRSearchProps, TrSea
 
     render() {
         const {formData, definition} = this.props;
-        console.log(formData)
         return (
             <React.Fragment>
                 {definition.map((row: any, index: any) => (

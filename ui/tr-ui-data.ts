@@ -180,6 +180,10 @@ class TRTableActionDataHelper {
         return this.commonActions(actionCallbackData).getMap();
     }
 
+    public static instance() : TRTableActionDataHelper {
+        return new TRTableActionDataHelper();
+    }
+
 }
 
 // TABLE ACTION DATA

@@ -48,6 +48,7 @@ export {
     Paper as Paper,
     Typography as Typography,
     TextField as TextField,
+    TextareaAutosize as TextareaAutosize,
     Grid as Grid,
     CssBaseline as CssBaseline,
     InputLabel as InputLabel,

@@ -46,6 +46,7 @@ export {
     Button as Button,
     ButtonGroup as ButtonGroup,
     Paper as Paper,
+    Switch as Switch,
     Typography as Typography,
     TextField as TextField,
     TextareaAutosize as TextareaAutosize,

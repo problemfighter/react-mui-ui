@@ -47,6 +47,8 @@ export {
     ButtonGroup as ButtonGroup,
     Paper as Paper,
     Switch as Switch,
+    RootRef as RootRef,
+    ListItemSecondaryAction as ListItemSecondaryAction,
     Typography as Typography,
     TextField as TextField,
     TextareaAutosize as TextareaAutosize,

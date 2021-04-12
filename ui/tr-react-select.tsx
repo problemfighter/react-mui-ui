@@ -1,4 +1,4 @@
-import React, {CSSProperties, HTMLAttributes} from 'react';
+import React, {CSSProperties} from 'react';
 import Select from 'react-select';
 import {createStyles, Theme} from '@material-ui/core/styles';
 import NoSsr from '@material-ui/core/NoSsr';

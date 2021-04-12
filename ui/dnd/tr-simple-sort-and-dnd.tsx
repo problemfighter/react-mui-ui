@@ -12,6 +12,8 @@ export interface TRSimpleDnDProps extends TRProps {
     itemList: any[]
     children(item: any): any;
     onDragEnd(itemList: any): any;
+    listItemAttr?:any;
+    listItemOnClick?: { (event: any, item: any): void };
 }
 
 const reorder = (list: any, startIndex: any, endIndex: any) => {
@@ -66,6 +68,12 @@ export default class TrSimpleSortAndDnd extends TRReactComponent<TRSimpleDnDProp
         })
     };
 
+    onListItemClick(event: any, item: any) {
+        if (this.props.listItemOnClick) {
+           this.props.listItemOnClick(event, item)
+        }
+    }
+
     render() {
         const _this = this;
         return (
@@ -86,7 +94,10 @@ export default class TrSimpleSortAndDnd extends TRReactComponent<TRSimpleDnDProp
                                                 style={_this.getListItemStyle(
                                                     snapshot.isDragging,
                                                     provided.draggableProps.style
-                                                )}>
+                                                )}
+                                                onClick={(event: any) => { _this.onListItemClick(event, item) }}
+                                                {..._this.props.listItemAttr}
+                                            >
                                                 {_this.props.children(item)}
                                             </ListItem>
                                         )}

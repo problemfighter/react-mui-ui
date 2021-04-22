@@ -31,6 +31,8 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import PeopleIcon from '@material-ui/icons/People';
 import NoteIcon from '@material-ui/icons/Note';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 export type {WithStyles, Theme} from "@material-ui/core";
 

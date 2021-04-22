@@ -1,6 +1,9 @@
 import {DeleteIcon, EditIcon, ExpandLessIcon, ExpandMoreIcon, StopIcon, VisibilityIcon} from "./ui-component";
 import {Classes} from "jss";
 import * as React from "react";
+import RemoveIcon from "@material-ui/icons/Remove";
+import AddIcon from "@material-ui/icons/Add";
+
 
 
 export interface OnActionFunction {
@@ -287,12 +290,12 @@ class TRListData {
     public name?: string;
     public action?: OnActionFunction;
     public actionCallbackData?: any;
-    public expandLessIcon: any = ExpandLessIcon;
-    public expandMoreIcon: any = ExpandMoreIcon;
+    public expandLessIcon: any = RemoveIcon;
+    public expandMoreIcon: any = AddIcon;
     public nested: Array<TRListData> = [];
 
 
-    constructor(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any, nested: Array<TRListData> = [], expandLessIcon: any = ExpandLessIcon, expandMoreIcon: any = ExpandMoreIcon) {
+    constructor(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any, nested: Array<TRListData> = [], expandLessIcon: any = AddIcon, expandMoreIcon: any = RemoveIcon) {
         this.icon = icon;
         this.label = label;
         this.name = name;
@@ -376,7 +379,6 @@ class TRListDataHelper {
     }
 
     public addChild(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any): TRListDataHelper {
-        console.log(this.child)
         if (this.child) {
             this.child.add(name, label, icon, action);
         } else {

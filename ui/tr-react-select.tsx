@@ -77,6 +77,7 @@ interface Props extends TRProps {
     helperText?: any;
     error?: boolean;
     defaultLabel?: string;
+    defaultSelect?: any;
 }
 
 class State implements TRState {
@@ -123,11 +124,11 @@ class TRReactSelect extends TRReactComponent<Props, State> {
         if (props.options && props.optionValue && props.optionLabel) {
             let items: Array<OptionType> = [];
 
-            let defaultSelect = {value: "empty", label: props.defaultLabel + ""}
-            if (props.defaultLabel !== null) {
-                items.push(defaultSelect)
-                optionData.selected = defaultSelect;
-            }
+            // let defaultSelect = {value: "empty", label: props.defaultLabel + ""}
+            // if (props.defaultLabel !== null) {
+            //     // items.push(defaultSelect)
+            //     optionData.selected = props.defaultSelect;
+            // }
 
             props.options.map(item => {
                 items.push({value: item[props.optionValue], label: item[props.optionLabel]})

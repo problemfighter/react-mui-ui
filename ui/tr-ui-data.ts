@@ -376,7 +376,12 @@ class TRListDataHelper {
     }
 
     public addChild(name: string, label: string, icon?: any, action?: OnActionFunction, actionCallbackData?: any): TRListDataHelper {
-        this.child = new TRListDataHelper(name, label, icon, action, actionCallbackData);
+        console.log(this.child)
+        if (this.child) {
+            this.child.add(name, label, icon, action);
+        } else {
+            this.child = new TRListDataHelper(name, label, icon, action, actionCallbackData);
+        }
         return this.child;
     }
 

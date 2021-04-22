@@ -3,8 +3,9 @@ import Select from 'react-select';
 import {createStyles, Theme} from '@material-ui/core/styles';
 import NoSsr from '@material-ui/core/NoSsr';
 import TRReactComponent from 'tm-react/src/artifacts/framework/tr-react-component';
-import {withStyles} from 'react-mui-ui/ui/ui-component';
+import {InputLabel, withStyles} from 'react-mui-ui/ui/ui-component';
 import {TRProps, TRState} from 'tm-react/src/artifacts/model/tr-model';
+import {FormLabel} from "@material-ui/core";
 
 export const ReactSelectStyles = (theme: Theme) =>
     createStyles({
@@ -29,12 +30,6 @@ export const ReactSelectStyles = (theme: Theme) =>
         chip: {
             margin: theme.spacing(0.5, 0.25),
         },
-        // chipFocused: {
-        //     backgroundColor: emphasize(
-        //         theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
-        //         0.08,
-        //     ),
-        // },
         noOptionsMessage: {
             padding: theme.spacing(1, 2),
         },
@@ -176,35 +171,24 @@ class TRReactSelect extends TRReactComponent<Props, State> {
     }
 
     render() {
-        const {classes, inputId, isMulti, placeholder, label, value, helperText, error} = this.props;
-        // const theme = useTheme();
+        const {classes, inputId, isMulti, placeholder, label, helperText, error} = this.props;
         let placeholderLabel = label;
         if (placeholder !== "PLACEHOLDER"){
             placeholderLabel = placeholder;
         }
 
-        const selectStyles = {
-            input: (base: CSSProperties) => ({
-                ...base,
-                // color: theme.palette.text.primary,
-                '& input': {
-                    font: 'inherit',
-                },
-            }),
-        };
-
-        let attributes: { [key: string]: any } = {};
-
         return (
             <div className={classes.root}>
+                <FormLabel>{label}</FormLabel>
                 <NoSsr>
                     <Select
                         name={this.props.name}
                         value={this.state.value}
                         classes={classes}
-                        // styles={selectStyles}
                         inputId={inputId}
-                        onChange={(data:any) => {this.onChange(data)}}
+                        onChange={(data: any) => {
+                            this.onChange(data)
+                        }}
                         TextFieldProps={{
                             label: label,
                             autoComplete: 'off',

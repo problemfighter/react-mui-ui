@@ -34,6 +34,7 @@ import NoteIcon from '@material-ui/icons/Note';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 export type {WithStyles, Theme} from "@material-ui/core";
 
@@ -126,6 +127,7 @@ export {
     PhotoCameraIcon,
     AddIcon,
     RemoveIcon,
+    CloudUploadIcon,
     NoteIcon
 };
 

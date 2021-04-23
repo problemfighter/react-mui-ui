@@ -38,17 +38,17 @@ export default class TrDetailsGridView extends TRReactComponent<TRSearchProps, T
         }
     }
 
-    private getView(definition: any) {
+    private getView(definition: any, index: any) {
         let value = this.getValue(this.props.formData, definition)
         let _this = this;
         if (value !== undefined) {
             return (
-                <Grid item xs={_this.getGridSize(definition)}>
+                <Grid item xs={_this.getGridSize(definition)} key={index}>
                     <Typography variant="subtitle2" gutterBottom>
                         <Box fontWeight="fontWeightBold">{definition.displayName}</Box>
-                        <Typography variant="subtitle1" gutterBottom>
-                            {value}
-                        </Typography>
+                    </Typography>
+                    <Typography variant="subtitle1" gutterBottom>
+                        {value}
                     </Typography>
                 </Grid>
             )
@@ -62,7 +62,7 @@ export default class TrDetailsGridView extends TRReactComponent<TRSearchProps, T
         let _this = this;
         return (
             <React.Fragment>
-                {definition.map((row: any, index: any) => _this.getView(row))}
+                {definition.map((row: any, index: any) => _this.getView(row, index))}
             </React.Fragment>
         );
     }

@@ -33,6 +33,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import NoteIcon from '@material-ui/icons/Note';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 export type {WithStyles, Theme} from "@material-ui/core";
 
@@ -73,6 +74,8 @@ export {
     Divider as Divider,
     Checkbox as Checkbox, CardContent as CardContent, Card as Card, CardHeader as CardHeader,
     InputAdornment as InputAdornment, CardActions as CardActions, Box as Box,
+    CardActionArea as CardActionArea,
+    CardMedia as CardMedia,
     TablePagination as TablePagination,
     FormControlLabel as FormControlLabel,
     ListItemIcon as ListItemIcon, Icon as Icon,
@@ -120,6 +123,9 @@ export {
     BarChartIcon,
     PeopleIcon,
     DashboardIcon,
+    PhotoCameraIcon,
+    AddIcon,
+    RemoveIcon,
     NoteIcon
 };
 

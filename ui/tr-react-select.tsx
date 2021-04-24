@@ -1,11 +1,28 @@
-import React, {CSSProperties} from 'react';
-import Select from 'react-select';
+import React, {CSSProperties, HTMLAttributes} from 'react';
+import Select, {
+    ControlProps,
+    MultiValueProps,
+    OptionProps,
+    PlaceholderProps,
+    SingleValueProps,
+    ValueContainerProps
+} from 'react-select';
 import {createStyles, Theme} from '@material-ui/core/styles';
 import NoSsr from '@material-ui/core/NoSsr';
 import TRReactComponent from 'tm-react/src/artifacts/framework/tr-react-component';
-import {InputLabel, withStyles} from 'react-mui-ui/ui/ui-component';
+import {
+    CancelIcon,
+    clsx, FormControl, FormHelperText,
+    InputLabel,
+    MenuItem,
+    Paper,
+    TextField,
+    Typography,
+    withStyles
+} from 'react-mui-ui/ui/ui-component';
 import {TRProps, TRState} from 'tm-react/src/artifacts/model/tr-model';
-import {FormLabel} from "@material-ui/core";
+import {BaseTextFieldProps, Chip, FormLabel, MenuProps} from "@material-ui/core";
+import {NoticeProps} from "react-select/src/components/Menu";
 
 export const ReactSelectStyles = (theme: Theme) =>
     createStyles({
@@ -54,6 +71,123 @@ export const ReactSelectStyles = (theme: Theme) =>
         },
     });
 
+// @ts-ignore
+function NoOptionsMessage(props: NoticeProps<OptionType>) {
+    return (
+        <Typography
+            color="textSecondary"
+            className={props.selectProps.classes.noOptionsMessage}
+            {...props.innerProps}>
+            {props.children}
+        </Typography>
+    );
+}
+
+type InputComponentProps = Pick<BaseTextFieldProps, 'inputRef'> & HTMLAttributes<HTMLDivElement>;
+
+function inputComponent({inputRef, ...props}: InputComponentProps) {
+    return <div ref={inputRef} {...props} />;
+}
+
+function Control(props: ControlProps<OptionType, boolean>) {
+    const {
+        children,
+        innerProps,
+        innerRef,
+        selectProps: {classes, TextFieldProps},
+    } = props;
+
+    return (
+        <TextField
+            fullWidth
+            InputProps={{
+                inputComponent,
+                inputProps: {
+                    className: classes.input,
+                    ref: innerRef,
+                    children,
+                    ...innerProps,
+                },
+            }}
+            {...TextFieldProps}
+        />
+    );
+}
+
+// @ts-ignore
+function Option(props: OptionProps<OptionType>) {
+    return (
+        <MenuItem
+            ref={props.innerRef}
+            selected={props.isFocused}
+            component="div"
+            style={{
+                fontWeight: props.isSelected ? 500 : 400,
+            }}
+            {...props.innerProps}>
+            {props.children}
+        </MenuItem>
+    );
+}
+
+// @ts-ignore
+type MuiPlaceholderProps = Omit<PlaceholderProps<OptionType>, 'innerProps'> & Partial<Pick<PlaceholderProps<OptionType>, 'innerProps'>>;
+
+function Placeholder(props: MuiPlaceholderProps) {
+    const {selectProps, innerProps = {}, children} = props;
+    return (
+        <Typography color="textSecondary" className={selectProps.classes.placeholder} {...innerProps}>
+            {children}
+        </Typography>
+    );
+}
+
+function SingleValue(props: SingleValueProps<OptionType>) {
+    return (
+        <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
+            {props.children}
+        </Typography>
+    );
+}
+
+// @ts-ignore
+function ValueContainer(props: ValueContainerProps<OptionType>) {
+    return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
+}
+
+function MultiValue(props: MultiValueProps<OptionType>) {
+    return (
+        <Chip
+            tabIndex={-1}
+            label={props.children}
+            className={clsx(props.selectProps.classes.chip, {
+                [props.selectProps.classes.chipFocused]: props.isFocused,
+            })}
+            onDelete={props.removeProps.onClick}
+            deleteIcon={<CancelIcon {...props.removeProps} />}
+        />
+    );
+}
+
+// @ts-ignore
+function Menu(props: MenuProps<OptionType>) {
+    return (
+        <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
+            {props.children}
+        </Paper>
+    );
+}
+
+const components = {
+    Control,
+    Menu,
+    // MultiValue,
+    NoOptionsMessage,
+    Option,
+    Placeholder,
+    SingleValue,
+    ValueContainer,
+};
 
 
 interface OptionType {
@@ -72,7 +206,7 @@ interface Props extends TRProps {
     options: Array<any>;
     optionLabel: string;
     optionValue: string;
-    value?: string;
+    value?: any;
     onChange?: any;
     helperText?: any;
     error?: boolean;
@@ -130,10 +264,19 @@ class TRReactSelect extends TRReactComponent<Props, State> {
             //     optionData.selected = props.defaultSelect;
             // }
 
+            if (props.value instanceof Array) {
+                optionData.selected = []
+            }
             props.options.map(item => {
                 items.push({value: item[props.optionValue], label: item[props.optionLabel]})
                 if (props.value && props.value === item[props.optionValue]) {
                     optionData.selected = {value: item[props.optionValue], label: item[props.optionLabel]}
+                } else if (props.value instanceof Array) {
+                    for (let nestedValue in props.value) {
+                        if (props.value[nestedValue] == item[props.optionValue]) {
+                            optionData.selected.push({value: item[props.optionValue], label: item[props.optionLabel]})
+                        }
+                    }
                 }
             });
             optionData.options = items;
@@ -171,6 +314,24 @@ class TRReactSelect extends TRReactComponent<Props, State> {
         });
     }
 
+    render2() {
+        const options = [
+            {value: 'chocolate', label: 'Chocolate'},
+            {value: 'strawberry', label: 'Strawberry'},
+            {value: 'vanilla', label: 'Vanilla'}
+        ]
+
+
+        return (
+            <React.Fragment>
+                <FormLabel>Name</FormLabel>
+                <NoSsr>
+                    <Select options={options} isMulti/>
+                </NoSsr>
+            </React.Fragment>
+        )
+    }
+
     render() {
         const {classes, inputId, isMulti, placeholder, label, helperText, error} = this.props;
         let placeholderLabel = label;
@@ -180,8 +341,8 @@ class TRReactSelect extends TRReactComponent<Props, State> {
 
         return (
             <div className={classes.root}>
-                <FormLabel>{label}</FormLabel>
                 <NoSsr>
+
                     <Select
                         name={this.props.name}
                         value={this.state.value}
@@ -202,7 +363,7 @@ class TRReactSelect extends TRReactComponent<Props, State> {
                         }}
                         placeholder={placeholderLabel}
                         options={this.state.options}
-                        // components={components}
+                        components={components}
                         isMulti={isMulti}
                     />
                 </NoSsr>

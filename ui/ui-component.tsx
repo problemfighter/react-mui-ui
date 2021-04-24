@@ -36,6 +36,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 export type {WithStyles, Theme} from "@material-ui/core";
 
@@ -130,6 +131,7 @@ export {
     RemoveIcon,
     CloudUploadIcon,
     SaveIcon,
+    CancelIcon,
     NoteIcon
 };
 

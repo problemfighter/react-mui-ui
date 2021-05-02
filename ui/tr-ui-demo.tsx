@@ -352,7 +352,7 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
                 <TableBody>
                     {rows.map((row: any) => (
                         <TableRow key={row.name} >
-                            <TableCell component="th" align="center" scope="row">
+                            <TableCell>
                                 {row.name}
                             </TableCell>
                             <TableCell align="center">{row.client_id}</TableCell>

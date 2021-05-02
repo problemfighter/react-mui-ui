@@ -86,6 +86,7 @@ function NoOptionsMessage(props: NoticeProps<OptionType>) {
 type InputComponentProps = Pick<BaseTextFieldProps, 'inputRef'> & HTMLAttributes<HTMLDivElement>;
 
 function inputComponent({inputRef, ...props}: InputComponentProps) {
+    // @ts-ignore
     return <div ref={inputRef} {...props} />;
 }
 

@@ -81,6 +81,7 @@ export {
     CardMedia as CardMedia,
     TablePagination as TablePagination,
     FormControlLabel as FormControlLabel,
+    FormLabel as FormLabel,
     ListItemIcon as ListItemIcon, Icon as Icon,
     List as List, Collapse as Collapse,Table as Table,
     ListItem as ListItem, ListSubheader as ListSubheader,

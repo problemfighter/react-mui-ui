@@ -53,6 +53,7 @@ export {
     ListItemSecondaryAction as ListItemSecondaryAction,
     Typography as Typography,
     TextField as TextField,
+    Accordion as Accordion, AccordionSummary as AccordionSummary, AccordionDetails as AccordionDetails,
     TextareaAutosize as TextareaAutosize,
     Grid as Grid,
     CssBaseline as CssBaseline,

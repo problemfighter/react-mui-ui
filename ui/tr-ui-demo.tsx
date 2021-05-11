@@ -262,12 +262,21 @@ export default class TrUiDemo extends TRReactComponent<DemoProps, DemoState> {
             <TRAlertDialog
                 isOpen={this.state.showAlertDialog}
                 message="Are you sure want to delete?"
-                           cancelFunction={{click(event: any, onClickData: any): void {
-                               component.dialogAlertBoxCancel(event);
-                }}}
-                okayFunction={{click(event: any, onClickData: any): void {
-                    component.dialogAlertBoxOkay(event);
-                }}}/>
+                cancelFunction={
+                    {
+                        click(event: any, onClickData: any): void {
+                            component.dialogAlertBoxCancel(event);
+                        }
+                    }
+                }
+                okayFunction={
+                    {
+                        click(event: any, onClickData: any): void {
+                            component.dialogAlertBoxOkay(event);
+                        }
+                    }
+                }
+            />
 
 
             {this.title("Progress Bar")}

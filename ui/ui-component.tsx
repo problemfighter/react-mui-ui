@@ -57,6 +57,7 @@ export {
     Accordion as Accordion, AccordionSummary as AccordionSummary, AccordionDetails as AccordionDetails,
     TextareaAutosize as TextareaAutosize,
     Grid as Grid,
+    Link as Link,
     CssBaseline as CssBaseline,
     InputLabel as InputLabel,
     Avatar as Avatar,

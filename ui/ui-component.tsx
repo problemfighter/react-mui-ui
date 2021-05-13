@@ -37,6 +37,8 @@ import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import LineWeightIcon from '@material-ui/icons/LineWeight';
 
 export type {WithStyles, Theme} from "@material-ui/core";
@@ -136,6 +138,8 @@ export {
     CloudUploadIcon,
     SaveIcon,
     CancelIcon,
+    CheckCircleOutlineIcon,
+    HighlightOffIcon,
     LineWeightIcon,
     NoteIcon
 };

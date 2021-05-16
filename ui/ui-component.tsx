@@ -40,6 +40,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import LineWeightIcon from '@material-ui/icons/LineWeight';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 export type {WithStyles, Theme} from "@material-ui/core";
 
@@ -141,6 +143,8 @@ export {
     CheckCircleOutlineIcon,
     HighlightOffIcon,
     LineWeightIcon,
+    KeyboardArrowDownIcon,
+    KeyboardArrowUpIcon,
     NoteIcon
 };
 

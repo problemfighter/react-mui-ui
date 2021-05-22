@@ -9,9 +9,7 @@ import {createStyles, Theme} from "@material-ui/core/styles";
 import {NoSsr} from '@material-ui/core';
 
 
-type MuiPlaceholderProps =
-    Omit<PlaceholderProps<OptionType, boolean>, 'innerProps'>
-    & Partial<Pick<PlaceholderProps<OptionType, boolean>, 'innerProps'>>;
+type MuiPlaceholderProps = Omit<PlaceholderProps<OptionType, boolean>, 'innerProps'> & Partial<Pick<PlaceholderProps<OptionType, boolean>, 'innerProps'>>;
 type InputComponentProps = Pick<BaseTextFieldProps, 'inputRef'> & HTMLAttributes<HTMLDivElement>;
 function inputComponent({inputRef, ...props}: InputComponentProps) {
     return <div ref={inputRef} {...props} />;

@@ -152,6 +152,7 @@ class TrSelect extends TRReactComponent<Props, State> {
 
     onChange(data: any) {
         let _this = this;
+        console.log(data)
         this.setState(status => {
             return {
                 value: data

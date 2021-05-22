@@ -196,7 +196,7 @@ class TrSelect extends TRReactComponent<Props, State> {
                 optionData.selected = []
             }
             props.options.map((item: any) => {
-                items.push({value: item[props.optionValue], label: item[props.optionLabel]})
+                items.push({value: item[props.optionValue], label: item[props.optionLabel], data: item})
                 if (props.value && props.value === item[props.optionValue]) {
                     optionData.selected = {value: item[props.optionValue], label: item[props.optionLabel]}
                     if (init) {

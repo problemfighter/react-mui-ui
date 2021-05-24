@@ -50,6 +50,71 @@ interface OptionType {
     data?: any;
 }
 
+class OptionData {
+    options: any = [];
+    selected: any = null;
+    missingSelected: any = [];
+    private isValueTypeArray = false
+
+    setSelectedType(props: any) {
+        if (props.value instanceof Array) {
+            this.selected = []
+            this.isValueTypeArray = true
+        } else {
+            this.selected = null
+        }
+        return this
+    }
+
+    addValueList(value: any) {
+        if (this.isValueTypeArray && value) {
+            this.missingSelected = value
+        } else if (value) {
+            this.missingSelected = [value]
+        }
+        return this
+    }
+
+    removeValueFromList(value: any) {
+        let index = this.missingSelected.indexOf(value)
+        if (index !== -1) {
+            this.missingSelected.splice(index, 1)
+        }
+        return this
+    }
+
+    addToSelected(data: any) {
+        if (this.isValueTypeArray && data) {
+            this.selected.push(data)
+        } else if (data) {
+            this.selected = data
+        }
+    }
+
+    private processSelected(item: any) {
+        let _this = this
+        for (let selectedValue in this.missingSelected) {
+            if (this.missingSelected[selectedValue] === item.value) {
+                _this.addToSelected(item)
+                _this.removeValueFromList(item.value)
+            }
+        }
+    }
+
+    setOptionDataAndMapToSelected(options: any) {
+        if (options && options instanceof Array) {
+            this.options = options
+            for (let item of this.options) {
+                this.processSelected(item)
+                if (this.missingSelected.length === 0) {
+                    break;
+                }
+            }
+        }
+        return this
+    }
+}
+
 interface Props extends TRProps {
     isAsync?: boolean;
     isMulti: boolean;
@@ -74,7 +139,8 @@ interface Props extends TRProps {
 class State implements TRState {
     value: any = null;
     options: any = [];
-    valueIds: any = []
+    asyncOptions: any = []
+    loadDefaultOptions: boolean = true
 }
 
 class TrSelect extends TRReactComponent<Props, State> {
@@ -97,12 +163,20 @@ class TrSelect extends TRReactComponent<Props, State> {
     }
 
     loadOption() {
-        let optionData = this.lisToOptionType(this.props, true);
-        if (optionData) {
-            this.setState({
-                value: optionData.selected,
-                options: optionData.options,
-            })
+        if (this.props.isAsync) {
+            if (!this.state.value) {
+                this.setState({loadDefaultOptions: false}, () => {
+                    this.setState({loadDefaultOptions: true})
+                })
+            }
+        } else {
+            let optionData = this.lisToOptionType(this.props);
+            if (optionData) {
+                this.setState({
+                    value: optionData.selected,
+                    options: optionData.options,
+                })
+            }
         }
     }
 
@@ -150,33 +224,25 @@ class TrSelect extends TRReactComponent<Props, State> {
 
     onChange(data: any) {
         let _this = this;
-        console.log(data)
         this.setState(status => {
             return {
                 value: data
             }
         }, () => {
             if (this.props.onChange) {
-                let value: any;
+                let chosenValue: any = [];
                 if (data instanceof Array) {
-                    value = [];
                     data.map(item => {
-                        value.push(item.value)
+                        chosenValue.push(item.value)
                     });
-                    _this.state.valueIds = value
                 } else {
-                    value = data.value
-                    if (value) {
-                        _this.state.valueIds.push(value)
-                    } else {
-                        _this.state.valueIds = []
-                    }
+                    chosenValue = data.value
                 }
                 let changeData = {
                     raw: data,
                     target: {
                         name: _this.props.name,
-                        value: value
+                        value: chosenValue
                     }
                 };
                 this.props.onChange(changeData);
@@ -184,30 +250,24 @@ class TrSelect extends TRReactComponent<Props, State> {
         });
     }
 
-    lisToOptionType(props: any, init: boolean = false) {
-        let _this = this;
-        let optionData: { [key: string]: any } = {};
-        optionData.options = [];
-        optionData.selected = null;
+    lisToOptionType(props: any) {
+        let optionData: OptionData = new OptionData();
         if (props.options && props.optionValue && props.optionLabel) {
+            optionData.setSelectedType(props)
+            optionData.addValueList(props.value)
             let items: Array<OptionType> = [];
-            if (props.value instanceof Array) {
-                optionData.selected = []
-            }
+            let itemValue: any;
             props.options.map((item: any) => {
                 items.push({value: item[props.optionValue], label: item[props.optionLabel], data: item})
+                itemValue = item[props.optionValue]
                 if (props.value && props.value === item[props.optionValue]) {
-                    optionData.selected = {value: item[props.optionValue], label: item[props.optionLabel]}
-                    if (init) {
-                        _this.state.valueIds.push(item[props.optionValue])
-                    }
+                    optionData.selected = {value: itemValue, label: item[props.optionLabel]}
+                    optionData.removeValueFromList(itemValue)
                 } else if (props.value instanceof Array) {
                     for (let nestedValue in props.value) {
-                        if (props.value[nestedValue] == item[props.optionValue]) {
-                            optionData.selected.push({value: item[props.optionValue], label: item[props.optionLabel]})
-                            if (init) {
-                                _this.state.valueIds.push(item[props.optionValue])
-                            }
+                        if (props.value[nestedValue] == itemValue) {
+                            optionData.selected.push({value: itemValue, label: item[props.optionLabel]})
+                            optionData.removeValueFromList(itemValue)
                         }
                     }
                 }
@@ -230,21 +290,81 @@ class TrSelect extends TRReactComponent<Props, State> {
         return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
     }
 
-    loadOptionsFromAPI(inputValue: any, callback: any) {
+    mergeArrays(source: any, destination: any) {
+        if (source) {
+            source.forEach((item: any) => {
+                let isExist = false
+                destination.forEach((dstItem: any) => {
+                    if (dstItem.value === item.value) {
+                        isExist = true
+                    }
+                })
+                if (!isExist) {
+                    destination.push(item)
+                }
+            })
+        }
+        return destination
+    }
+
+    private processAsyncCallback(optionData: OptionData, callback: any) {
+        if (optionData && optionData.options && callback) {
+            if (!this.state.value && optionData.selected){
+                this.setState({value: optionData.selected})
+            }
+            callback(optionData.options)
+        }
+    }
+
+    loadAsyncOptionsFromAPI(inputValue: any, callback: any, ids: any = []) {
         let _this = this;
         if (this.props.loadOptionsFromAPI) {
-            let ids: any = _this.state.valueIds
             this.props.loadOptionsFromAPI(inputValue, ids, function (data: any) {
                 let props = {
                     optionLabel: _this.props.optionLabel,
                     optionValue: _this.props.optionValue,
-                    options: []
+                    options: [],
+                    value: _this.props.value
                 }
-                if (data) {
+                if (data && data.length) {
                     props.options = data
+                    let optionData = _this.lisToOptionType(props);
+                    _this.state.asyncOptions = _this.mergeArrays(optionData.options, _this.state.asyncOptions)
+                    _this.loadOptionsFromAPI(inputValue, callback)
+                } else {
+                    _this.processAsyncCallback(new OptionData(), callback)
                 }
-                callback(_this.lisToOptionType(props).options)
             })
+        }
+    }
+
+    private filterAsyncInputValue(inputValue: any, callback: any) {
+        let response = this.state.asyncOptions.filter((item: any) =>
+            item.label.toLowerCase().includes(inputValue.toLowerCase())
+        );
+        if (response.length) {
+            if (callback) {
+                callback(response)
+            }
+        } else {
+            this.loadAsyncOptionsFromAPI(inputValue, callback)
+        }
+    }
+
+    loadOptionsFromAPI(inputValue: any, callback: any) {
+        let _this = this;
+        let optionData: OptionData = new OptionData().setSelectedType(_this.props);
+        if (inputValue) {
+            _this.filterAsyncInputValue(inputValue, callback)
+            return
+        } else if (!inputValue && _this.state.asyncOptions.length !== 0) {
+            optionData.addValueList(_this.props.value).setOptionDataAndMapToSelected(_this.state.asyncOptions)
+        }
+
+        if (optionData.options.length !== 0 && optionData.missingSelected.length === 0) {
+            _this.processAsyncCallback(optionData, callback)
+        } else {
+            _this.loadAsyncOptionsFromAPI(inputValue, callback, optionData.missingSelected)
         }
     }
 
@@ -265,7 +385,7 @@ class TrSelect extends TRReactComponent<Props, State> {
         attributes.value = _this.state.value
         return (
             <div className={classes.root}>
-                <NoSsr>
+                <NoSsr>{_this.state.loadDefaultOptions ? (
                     <SelectType
                         defaultOptions
                         cacheOptions
@@ -300,6 +420,7 @@ class TrSelect extends TRReactComponent<Props, State> {
                         isMulti={isMulti}
                         {...attributes}
                     />
+                ) : ""}
                 </NoSsr>
             </div>
         );

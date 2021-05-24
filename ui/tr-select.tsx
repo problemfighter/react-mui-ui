@@ -68,7 +68,7 @@ class OptionData {
 
     addValueList(value: any) {
         if (this.isValueTypeArray && value) {
-            this.missingSelected = value
+            this.missingSelected = [...value]
         } else if (value) {
             this.missingSelected = [value]
         }
@@ -353,12 +353,12 @@ class TrSelect extends TRReactComponent<Props, State> {
 
     loadOptionsFromAPI(inputValue: any, callback: any) {
         let _this = this;
-        let optionData: OptionData = new OptionData().setSelectedType(_this.props);
+        let optionData: OptionData = new OptionData().setSelectedType(_this.props).addValueList(_this.props.value);
         if (inputValue) {
             _this.filterAsyncInputValue(inputValue, callback)
             return
         } else if (!inputValue && _this.state.asyncOptions.length !== 0) {
-            optionData.addValueList(_this.props.value).setOptionDataAndMapToSelected(_this.state.asyncOptions)
+            optionData.setOptionDataAndMapToSelected(_this.state.asyncOptions)
         }
 
         if (optionData.options.length !== 0 && optionData.missingSelected.length === 0) {
